@@ -24,3 +24,6 @@ A friend object consists of a profile image and a username, besides other metada
 
 ## Notification
 The user is allowed to put the app in the background during a game. In that case, a notification will be sent when other players have made a move. Clicking on the notification takes the user back to the game. 
+
+## PlayerView
+This is a custom view to display player's information. It automatically displays relevant view elements given different states. For example, when a player is not specified, this view shows a floating action button to allow users to add one. When a specified player is not a friend of the user, a button is shown to allow adding that player as a friend.

@@ -5,4 +5,7 @@
     <string name="rankup_title_str">Welcome to RankUP</string>
     <string name="add_friend_button_str">add friend</string>
     <string name="unknown_player_name_str">unknown player</string>
+    <string name="select_my_team_str">Your Team</string>
+    <string name="selec_opponent_team_str">Opponents</string>
+    <string name="host_start_game_button_str">Start RankUp</string>
 </resources>

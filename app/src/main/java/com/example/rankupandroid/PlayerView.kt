@@ -38,12 +38,14 @@ class PlayerView @JvmOverloads constructor(
 
     private fun setUpPlayerView(playerName: String, playerImageId: Int?, playerSpecified: Boolean, playerIsFriend: Boolean) {
         if (!playerSpecified) {
+            binding.addPlayerButton.visibility = View.VISIBLE
             binding.playerName.visibility =View.INVISIBLE
             binding.addFriendButton.visibility =View.INVISIBLE
             binding.playerImage.visibility = View.INVISIBLE
             // TODO set the image to a plus sign(maybe a FAB is good), then add click listener
             return
         }
+        binding.addPlayerButton.visibility = View.GONE
 
         binding.playerName.text = playerName
         if (playerImageId != null) {
