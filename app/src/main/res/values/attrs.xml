@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PlayerView">
+        <attr name="player_name" format="string" />
+        <attr name="player_image" format="reference" />
+        <attr name="player_specified" format="boolean" />
+        <attr name="player_is_friend" format="boolean" />
+    </declare-styleable>
+</resources>

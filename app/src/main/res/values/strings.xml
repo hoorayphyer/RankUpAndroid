@@ -3,4 +3,6 @@
     <string name="host_game_button_str">Host A Game</string>
     <string name="join_game_button_str">Join A Game</string>
     <string name="rankup_title_str">Welcome to RankUP</string>
+    <string name="add_friend_button_str">add friend</string>
+    <string name="unknown_player_name_str">unknown player</string>
 </resources>
