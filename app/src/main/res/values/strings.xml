@@ -8,4 +8,5 @@
     <string name="select_my_team_str">Your Team</string>
     <string name="selec_opponent_team_str">Opponents</string>
     <string name="host_start_game_button_str">Start RankUp</string>
+    <string name="player_list_item_is_friend">FRIEND</string>
 </resources>
