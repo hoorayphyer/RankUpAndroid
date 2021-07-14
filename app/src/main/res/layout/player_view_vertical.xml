@@ -22,7 +22,6 @@
         android:id="@+id/player_name_vertical"
         android:layout_width="@dimen/player_image_width"
         android:layout_height="@dimen/vertical_player_name_height"
-        android:rotation="90"
         android:text="@string/unknown_player_name_str"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/add_friend_button_vertical"
