@@ -6,4 +6,9 @@
         <attr name="player_specified" format="boolean" />
         <attr name="player_is_friend" format="boolean" />
     </declare-styleable>
+    <declare-styleable name="PlayerViewVertical">
+        <attr name="player_name_vertical" format="string" />
+        <attr name="player_image_vertical" format="reference" />
+        <attr name="player_is_friend_vertical" format="boolean" />
+    </declare-styleable>
 </resources>

@@ -4,4 +4,5 @@
     <dimen name="player_image_height">80</dimen>
     <dimen name="players_recycler_view_margin">20</dimen>
     <dimen name="players_recycler_view_top_margin">60</dimen>
+    <dimen name="vertical_player_name_height">200</dimen>
 </resources>

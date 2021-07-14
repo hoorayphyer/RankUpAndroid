@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+    <!--- the tools:parentTag is used to preview this layout correctly  -->
+
+    <ImageView
+        android:id="@+id/player_image_vertical"
+        android:layout_width="@dimen/player_image_width"
+        android:layout_height="@dimen/player_image_height"
+        app:layout_constraintBottom_toTopOf="@+id/player_name_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/player_name_vertical"
+        android:layout_width="@dimen/player_image_width"
+        android:layout_height="@dimen/vertical_player_name_height"
+        android:rotation="90"
+        android:text="@string/unknown_player_name_str"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/add_friend_button_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/player_image_vertical" />
+
+    <Button
+        android:id="@+id/add_friend_button_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_friend_button_vertical_str"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/player_image_vertical"
+        app:layout_constraintStart_toStartOf="@+id/player_image_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/player_name_vertical" />
+</merge>
