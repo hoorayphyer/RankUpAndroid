@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/welcomeFragment">
+
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.example.rankupandroid.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_hostGameFragment"
+            app:destination="@id/hostGameFragment" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_joinGameFragment"
+            app:destination="@id/joinGameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hostGameFragment"
+        android:name="com.example.rankupandroid.HostGameFragment"
+        android:label="fragment_host_game"
+        tools:layout="@layout/fragment_host_game" >
+        <action
+            android:id="@+id/action_hostGameFragment_to_rankUpFragment"
+            app:destination="@id/rankUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/rankUpFragment"
+        android:name="com.example.rankupandroid.RankUpFragment"
+        android:label="fragment_rank_up"
+        tools:layout="@layout/fragment_rank_up" />
+    <fragment
+        android:id="@+id/joinGameFragment"
+        android:name="com.example.rankupandroid.JoinGameFragment"
+        android:label="fragment_join_game"
+        tools:layout="@layout/fragment_join_game" >
+        <action
+            android:id="@+id/action_joinGameFragment_to_rankUpFragment"
+            app:destination="@id/rankUpFragment" />
+    </fragment>
+</navigation>
