@@ -9,7 +9,7 @@
         android:id="@+id/welcomeFragment"
         android:name="com.example.rankupandroid.WelcomeFragment"
         android:label="fragment_welcome"
-        tools:layout="@layout/fragment_welcome" >
+        tools:layout="@layout/fragment_welcome">
         <action
             android:id="@+id/action_welcomeFragment_to_hostGameFragment"
             app:destination="@id/hostGameFragment" />
