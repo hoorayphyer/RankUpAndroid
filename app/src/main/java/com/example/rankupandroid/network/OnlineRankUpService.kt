@@ -27,7 +27,7 @@ private val retrofit_service = Retrofit.Builder()
 
 interface OnlineRankUpService {
     @GET("users")
-    suspend fun queryPlayers(): RankUpPlayerJson
+    suspend fun queryPlayers(): RankUpPlayersJson
 }
 
 

@@ -2,7 +2,7 @@ package com.example.rankupandroid.network
 
 import com.squareup.moshi.Json
 
-data class RankUpPlayerJson(
+data class RankUpPlayersJson(
     val players: List<IndividualPlayerInfo>
 ) {
     data class IndividualPlayerInfo(
