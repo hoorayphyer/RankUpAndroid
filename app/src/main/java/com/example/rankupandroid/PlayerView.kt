@@ -48,11 +48,17 @@ class PlayerView @JvmOverloads constructor(
             return
         }
         binding.addPlayerButton.visibility = View.INVISIBLE
+        // initialize clicklistener to null. Allow this to be later specified
+        binding.addPlayerButton.setOnClickListener(null)
 
         binding.playerName.text = playerName
         if (playerImageId != null) {
             val drawable = AppCompatResources.getDrawable(context, playerImageId)
             binding.playerImage.setImageDrawable(drawable)
         }
+    }
+
+    fun setAddButtonAction(f : OnClickListener?) {
+        binding.addPlayerButton.setOnClickListener(f)
     }
 }

@@ -25,12 +25,19 @@
         <action
             android:id="@+id/action_hostGameFragment_to_rankUpFragment"
             app:destination="@id/rankUpFragment" />
+        <action
+            android:id="@+id/action_hostGameFragment_to_playersListFragment"
+            app:destination="@id/playersListFragment" />
     </fragment>
     <fragment
         android:id="@+id/rankUpFragment"
         android:name="com.example.rankupandroid.RankUpFragment"
         android:label="fragment_rank_up"
-        tools:layout="@layout/fragment_rank_up" />
+        tools:layout="@layout/fragment_rank_up" >
+        <action
+            android:id="@+id/action_rankUpFragment_to_playersListFragment"
+            app:destination="@id/playersListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/joinGameFragment"
         android:name="com.example.rankupandroid.JoinGameFragment"
@@ -40,4 +47,9 @@
             android:id="@+id/action_joinGameFragment_to_rankUpFragment"
             app:destination="@id/rankUpFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/playersListFragment"
+        android:name="com.example.rankupandroid.playerslist.PlayersListFragment"
+        android:label="fragment_players_list"
+        tools:layout="@layout/fragment_players_list" />
 </navigation>

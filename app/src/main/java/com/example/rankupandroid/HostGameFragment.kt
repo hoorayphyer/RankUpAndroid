@@ -5,12 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.rankupandroid.databinding.FragmentHostGameBinding
 
 class HostGameFragment : Fragment() {
 
     private lateinit var binding: FragmentHostGameBinding
+    private lateinit var navCtrl: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -18,9 +20,18 @@ class HostGameFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentHostGameBinding.inflate(layoutInflater, container, false)
+        navCtrl = findNavController()
 
-        binding.hostStartGameButton.setOnClickListener {
-            findNavController().navigate(R.id.action_hostGameFragment_to_rankUpFragment)
+        binding.apply{
+            hostStartGameButton.setOnClickListener {
+                navCtrl.navigate(R.id.action_hostGameFragment_to_rankUpFragment)
+            }
+            val actionToList = { _ : View ->
+                navCtrl.navigate(R.id.action_hostGameFragment_to_playersListFragment)
+            }
+            playerYourTeammate.setAddButtonAction(actionToList)
+            playerOpponent1.setAddButtonAction(actionToList)
+            playerOpponent2.setAddButtonAction(actionToList)
         }
 
         // TODO automatically add you as an existing player
