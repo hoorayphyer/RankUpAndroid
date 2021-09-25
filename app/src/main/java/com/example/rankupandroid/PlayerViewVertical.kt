@@ -24,23 +24,21 @@ class PlayerViewVertical @JvmOverloads constructor(
         val ta = context.obtainStyledAttributes(attrs, R.styleable.PlayerViewVertical)
         try {
             val playerName = ta.getString(R.styleable.PlayerViewVertical_player_name_vertical)?: "unknown name"
-            val playerIsFriend = ta.getBoolean(R.styleable.PlayerViewVertical_player_is_friend_vertical, false)
             var playerImageId : Int? = ta.getResourceId(R.styleable.PlayerViewVertical_player_image_vertical, 0)
             if ( playerImageId == 0) {
                 playerImageId = null
             }
-            setUpPlayerView(playerName, playerImageId, playerIsFriend)
+            setUpPlayerView(playerName, playerImageId)
         } finally {
             ta.recycle()
         }
     }
 
-    private fun setUpPlayerView(playerName: String, playerImageId: Int?, playerIsFriend: Boolean) {
+    private fun setUpPlayerView(playerName: String, playerImageId: Int?) {
         binding.playerNameVertical.text = playerName
         if (playerImageId != null) {
             val drawable = AppCompatResources.getDrawable(context, playerImageId)
             binding.playerImageVertical.setImageDrawable(drawable)
         }
-        binding.addFriendButtonVertical.visibility = if(playerIsFriend) View.INVISIBLE else View.VISIBLE
     }
 }

@@ -24,18 +24,8 @@
         android:layout_height="@dimen/vertical_player_name_height"
         android:text="@string/unknown_player_name_str"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/add_friend_button_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/player_image_vertical" />
 
-    <Button
-        android:id="@+id/add_friend_button_vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_friend_button_vertical_str"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/player_image_vertical"
-        app:layout_constraintStart_toStartOf="@+id/player_image_vertical"
-        app:layout_constraintTop_toBottomOf="@+id/player_name_vertical" />
 </merge>

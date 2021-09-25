@@ -11,7 +11,7 @@ import com.example.rankupandroid.databinding.PlayersListItemBinding
 class PlayersListAdapter(private val clickListener: PlayerItemClickListener) :
     ListAdapter<Player, PlayersListAdapter.ViewHolder>(DiffCallback()) {
 
-    class ViewHolder private constructor(val binding: PlayersListItemBinding) :
+    class ViewHolder private constructor(private val binding: PlayersListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Player, clickListener: PlayerItemClickListener) {
@@ -19,9 +19,6 @@ class PlayersListAdapter(private val clickListener: PlayerItemClickListener) :
                 text = item.name
             }
             // TODO set user iamge as well
-            binding.playerListItemIsFriend.apply {
-                visibility = if(item.isFriend) View.VISIBLE else View.INVISIBLE
-            }
             binding.player = item
             binding.clickListener = clickListener
             binding.executePendingBindings()
