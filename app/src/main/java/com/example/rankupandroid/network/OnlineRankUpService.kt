@@ -25,9 +25,11 @@ private val retrofit_service = Retrofit.Builder()
     .baseUrl(BASE_URL)
     .build()
 
+// this is a Retrofit interface object
 interface OnlineRankUpService {
+    // return a List because the top level json is a json array
     @GET("users")
-    suspend fun queryPlayers(): RankUpPlayersJson
+    suspend fun queryPlayers(): List<RemotePlayerInfo>
 }
 
 

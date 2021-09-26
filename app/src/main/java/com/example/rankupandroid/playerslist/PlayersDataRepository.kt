@@ -8,8 +8,8 @@ class PlayersDataRepository {
     private val remote = RankUpRemote.service
 
     suspend fun getPlayersFromRemote() : List<Player> {
-        val results = remote.queryPlayers()
-        return results.players.map{
+        val players = remote.queryPlayers()
+        return players.map{
             Player(it.account_id, it.nickname)
         }
     }
