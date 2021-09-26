@@ -5,8 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.rankupandroid.PlayerItemClickListener
-import com.example.rankupandroid.PlayersListAdapter
 import com.example.rankupandroid.databinding.FragmentPlayersListBinding
 
 class PlayersListFragment : Fragment() {
@@ -36,7 +34,7 @@ class PlayersListFragment : Fragment() {
         )
 
         // the following supplies the recycler view with concrete contents
-        viewModel.playersList.observe(viewLifecycleOwner, {
+        viewModel.activePlayers.observe(viewLifecycleOwner, {
             it?.let{
                 playersAdapter.submitList(it)
             }

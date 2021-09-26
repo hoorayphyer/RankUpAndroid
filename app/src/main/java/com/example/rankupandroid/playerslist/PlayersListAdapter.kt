@@ -1,11 +1,11 @@
-package com.example.rankupandroid
+package com.example.rankupandroid.playerslist
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.rankupandroid.Player
 import com.example.rankupandroid.databinding.PlayersListItemBinding
 
 class PlayersListAdapter(private val clickListener: PlayerItemClickListener) :
@@ -18,7 +18,7 @@ class PlayersListAdapter(private val clickListener: PlayerItemClickListener) :
             binding.playerListItemName.apply {
                 text = item.name
             }
-            // TODO set user iamge as well
+            // TODO set user image as well
             binding.player = item
             binding.clickListener = clickListener
             binding.executePendingBindings()

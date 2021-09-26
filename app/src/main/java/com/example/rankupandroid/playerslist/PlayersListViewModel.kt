@@ -9,13 +9,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class PlayersListViewModel(private val repo : PlayersDataRepository) : ViewModel() {
-    private val _playersList : MutableLiveData<List<Player>> = MutableLiveData<List<Player>>()
-    val playersList : LiveData<List<Player>> = _playersList
+    private val _activePlayers : MutableLiveData<List<Player>> = MutableLiveData<List<Player>>()
+    val activePlayers : LiveData<List<Player>> = _activePlayers
 
     init{
         viewModelScope.launch(Dispatchers.IO) {
             // get list from remote then turn it into list of players
-            _playersList.value = repo.getPlayersFromRemote()
+            // unlike `setValue`, `postValue` posts a task to a main thread to set the given value. So if you have a following code executed in the main thread:
+            _activePlayers.postValue(repo.getPlayersFromRemote())
         }
     }
 }

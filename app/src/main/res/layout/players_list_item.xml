@@ -9,7 +9,7 @@
             type="com.example.rankupandroid.Player" />
         <variable
             name="clickListener"
-            type="com.example.rankupandroid.PlayerItemClickListener"/>
+            type="com.example.rankupandroid.playerslist.PlayerItemClickListener"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
