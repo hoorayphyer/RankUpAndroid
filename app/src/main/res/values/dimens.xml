@@ -5,4 +5,5 @@
     <dimen name="players_recycler_view_margin">20dp</dimen>
     <dimen name="players_recycler_view_top_margin">60dp</dimen>
     <dimen name="vertical_player_name_height">200dp</dimen>
+    <dimen name="player_name_width_in_recycler_view">200dp</dimen>
 </resources>
