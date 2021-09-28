@@ -10,6 +10,8 @@ import com.bumptech.glide.Glide
 fun bindImagePictureOfDay(imgView : ImageView, imgUrl : String?) {
     imgUrl?.let{
         val imgUri = it.toUri().buildUpon().scheme("https").build()
-        Glide.with(imgView.context).load(imgUri).into(imgView)
+        Glide.with(imgView.context).load(imgUri)
+//            .placeholder(R.drawable.loading_spinner) // TODO
+            .into(imgView)
     }
 }

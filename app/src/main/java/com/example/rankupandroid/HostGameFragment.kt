@@ -22,11 +22,16 @@ class HostGameFragment : Fragment() {
         binding = FragmentHostGameBinding.inflate(layoutInflater, container, false)
         navCtrl = findNavController()
 
-        binding.apply{
+        binding.apply {
             hostStartGameButton.setOnClickListener {
                 navCtrl.navigate(R.id.action_hostGameFragment_to_rankUpFragment)
             }
-            val actionToList = { _ : View ->
+
+            // automatically add you as an existing player
+            playerYou.setUpPlayerView("Me", R.drawable.my_avatar, true)
+
+            // initialize other players
+            val actionToList = { _: View ->
                 navCtrl.navigate(R.id.action_hostGameFragment_to_playersListFragment)
             }
             playerYourTeammate.setAddButtonAction(actionToList)
@@ -34,7 +39,6 @@ class HostGameFragment : Fragment() {
             playerOpponent2.setAddButtonAction(actionToList)
         }
 
-        // TODO automatically add you as an existing player
         // TODO consider using data binding for each player view, which may require implementing the Player class first
         return binding.root
     }

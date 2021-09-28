@@ -18,7 +18,6 @@ class PlayersListAdapter(private val clickListener: PlayerItemClickListener) :
             binding.playerListItemName.apply {
                 text = item.name
             }
-            // TODO set user image as well
             binding.player = item
             binding.clickListener = clickListener
             binding.executePendingBindings()
