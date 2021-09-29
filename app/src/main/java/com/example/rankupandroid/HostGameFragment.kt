@@ -34,46 +34,41 @@ class HostGameFragment : Fragment() {
             playerYou.setUpPlayerView("Me", R.drawable.my_avatar, true)
 
             // initialize other players
-            val actionToList = { _: View ->
-                // the following uses safe args to indicate to PlayersList from where it's navigated to
-                val action = HostGameFragmentDirections.actionHostGameFragmentToPlayersListFragment(
-                    ToPlayersListFrom.HostGameFrag
-                )
-                navCtrl.navigate(action)
-            }
+            playerYourTeammate.setAddButtonAction(genButtonAction {
+                sharedModelPlayersList.yourTeammate = it
+            })
 
-            playerYourTeammate.setAddButtonAction {
-                sharedModelPlayersList.apply {
-                    callback = { selected: Player ->
-                        yourTeammate = selected
-                        navCtrl.navigateUp()
-                    }
-                }
-                actionToList(it)
-            }
+            playerOpponent1.setAddButtonAction(genButtonAction {
+                sharedModelPlayersList.opponent1 = it
+            })
 
-            playerOpponent1.setAddButtonAction {
-                sharedModelPlayersList.apply {
-                    callback = { selected: Player ->
-                        opponent1 = selected
-                        navCtrl.navigateUp()
-                    }
-                }
-                actionToList(it)
-            }
-
-            playerOpponent2.setAddButtonAction {
-                sharedModelPlayersList.apply {
-                    callback = { selected: Player ->
-                        opponent2 = selected
-                        navCtrl.navigateUp()
-                    }
-                }
-                actionToList(it)
-            }
+            playerOpponent2.setAddButtonAction(genButtonAction {
+                sharedModelPlayersList.opponent2 = it
+            })
         }
 
         // TODO consider using data binding for each player view, which may require implementing the Player class first
         return binding.root
     }
+
+    // a higher order function where f binds the selected player to correct entry in the shared viewmodel
+    // 1. Thought about passing in just the entry (e.g. sharedViewModel.yourTeammate), but parameters are passed as val so assignment doesn't work
+    // 2. setting `var teammate = sharedViewModel.yourTeammate` then assign teammate to new values does NOT change sharedViewModel.yourTeammate
+    private fun genButtonAction(f: (Player) -> Unit): (View) -> Unit {
+        return { _: View ->
+            // first set up shared view model
+            sharedModelPlayersList.callback = { selected: Player ->
+                f(selected)
+                navCtrl.navigateUp()
+            }
+
+            // then navigate
+            // the following uses safe args to indicate to PlayersList from where it's navigated to
+            val action = HostGameFragmentDirections.actionHostGameFragmentToPlayersListFragment(
+                ToPlayersListFrom.HostGameFrag
+            )
+            navCtrl.navigate(action)
+        }
+    }
+
 }
