@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.rankupandroid.databinding.FragmentHostGameBinding
@@ -14,6 +15,7 @@ class HostGameFragment : Fragment() {
 
     private lateinit var binding: FragmentHostGameBinding
     private lateinit var navCtrl: NavController
+    private val sharedModelPlayersList: SharedViewModelHostGameFragPlayersListFrag by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,9 +41,36 @@ class HostGameFragment : Fragment() {
                 )
                 navCtrl.navigate(action)
             }
-            playerYourTeammate.setAddButtonAction(actionToList)
-            playerOpponent1.setAddButtonAction(actionToList)
-            playerOpponent2.setAddButtonAction(actionToList)
+
+            playerYourTeammate.setAddButtonAction {
+                sharedModelPlayersList.apply {
+                    callback = { selected: Player ->
+                        yourTeammate = selected
+                        navCtrl.navigateUp()
+                    }
+                }
+                actionToList(it)
+            }
+
+            playerOpponent1.setAddButtonAction {
+                sharedModelPlayersList.apply {
+                    callback = { selected: Player ->
+                        opponent1 = selected
+                        navCtrl.navigateUp()
+                    }
+                }
+                actionToList(it)
+            }
+
+            playerOpponent2.setAddButtonAction {
+                sharedModelPlayersList.apply {
+                    callback = { selected: Player ->
+                        opponent2 = selected
+                        navCtrl.navigateUp()
+                    }
+                }
+                actionToList(it)
+            }
         }
 
         // TODO consider using data binding for each player view, which may require implementing the Player class first
