@@ -51,5 +51,9 @@
         android:id="@+id/playersListFragment"
         android:name="com.example.rankupandroid.playerslist.PlayersListFragment"
         android:label="fragment_players_list"
-        tools:layout="@layout/fragment_players_list" />
+        tools:layout="@layout/fragment_players_list" >
+        <argument
+            android:name="from"
+            app:argType="com.example.rankupandroid.playerslist.ToPlayersListFrom" />
+    </fragment>
 </navigation>

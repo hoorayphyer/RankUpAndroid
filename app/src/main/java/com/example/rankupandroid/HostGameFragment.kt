@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.rankupandroid.databinding.FragmentHostGameBinding
+import com.example.rankupandroid.playerslist.ToPlayersListFrom
 
 class HostGameFragment : Fragment() {
 
@@ -32,7 +33,11 @@ class HostGameFragment : Fragment() {
 
             // initialize other players
             val actionToList = { _: View ->
-                navCtrl.navigate(R.id.action_hostGameFragment_to_playersListFragment)
+                // the following uses safe args to indicate to PlayersList from where it's navigated to
+                val action = HostGameFragmentDirections.actionHostGameFragmentToPlayersListFragment(
+                    ToPlayersListFrom.HostGameFrag
+                )
+                navCtrl.navigate(action)
             }
             playerYourTeammate.setAddButtonAction(actionToList)
             playerOpponent1.setAddButtonAction(actionToList)
