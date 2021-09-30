@@ -23,7 +23,7 @@
             android:layout_height="@dimen/player_image_height"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            app:avatarUrl="@{player.avatarUrl}"
+            app:avatarId="@{player}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/player_list_item_name"
             app:layout_constraintHorizontal_bias="0.5"

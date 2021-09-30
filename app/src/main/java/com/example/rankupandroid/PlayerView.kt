@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.bumptech.glide.Glide
 import com.example.rankupandroid.databinding.PlayerViewBinding
 
 class PlayerView @JvmOverloads constructor(
@@ -12,28 +11,28 @@ class PlayerView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
 ) : ConstraintLayout(context, attrs) {
 
-    private lateinit var binding: PlayerViewBinding
+    private var binding: PlayerViewBinding =
+        PlayerViewBinding.bind(View.inflate(context, R.layout.player_view, this))
 
-    init {
-        init(attrs)
-    }
+//    init {
+        //        init(attrs)
+//    }
 
-    private fun init(attrs: AttributeSet?) {
-        binding = PlayerViewBinding.bind(View.inflate(context, R.layout.player_view, this))
-
-        val ta = context.obtainStyledAttributes(attrs, R.styleable.PlayerView)
-        try {
-            val playerName = ta.getString(R.styleable.PlayerView_player_name)
-            val playerSpecified = ta.getBoolean(R.styleable.PlayerView_player_specified, false)
-            var playerImageId: Int? = ta.getResourceId(R.styleable.PlayerView_player_image, 0)
-            if (playerImageId == 0) {
-                playerImageId = null
-            }
-            setUpPlayerView(playerName, playerImageId, playerSpecified)
-        } finally {
-            ta.recycle()
-        }
-    }
+//    private fun init(attrs: AttributeSet?) {
+//
+//        val ta = context.obtainStyledAttributes(attrs, R.styleable.PlayerView)
+//        try {
+//            val playerName = ta.getString(R.styleable.PlayerView_player_name)
+//            val playerSpecified = ta.getBoolean(R.styleable.PlayerView_player_specified, false)
+//            var playerImageId: Int? = ta.getResourceId(R.styleable.PlayerView_player_image, 0)
+//            if (playerImageId == 0) {
+//                playerImageId = null
+//            }
+//            setUpPlayerView(playerName, playerImageId, playerSpecified)
+//        } finally {
+//            ta.recycle()
+//        }
+//    }
 
     private fun setVisibility(specified: Boolean) {
         binding.apply {
@@ -49,19 +48,17 @@ class PlayerView @JvmOverloads constructor(
         }
     }
 
-    fun setUpPlayerView(
-        name: String?,
-        imageId: Int?,
-        specified: Boolean
+    fun updateView(
+        player: Player?
     ) {
         binding.apply {
-            setVisibility(specified)
-            // initialize clicklistener to null. Allow this to be later specified
+            setVisibility(player != null)
+            // initialize clickListener to null. Allow this to be later specified
             addPlayerButton.setOnClickListener(null)
 
-            if (specified) {
-                playerName.text = name ?: "no_name_specified"
-                Glide.with(context).load(imageId ?: R.drawable.unknown_player_avatar)
+            if (player != null) {
+                playerName.text = player.name
+                glideLoad(context, player)
                     .into(binding.playerImage)
             }
         }

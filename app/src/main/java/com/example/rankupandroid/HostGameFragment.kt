@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.rankupandroid.databinding.FragmentHostGameBinding
@@ -15,7 +16,7 @@ class HostGameFragment : Fragment() {
 
     private lateinit var binding: FragmentHostGameBinding
     private lateinit var navCtrl: NavController
-    private val sharedModelPlayersList: SharedViewModelHostGameFragPlayersListFrag by activityViewModels()
+    private val sharedModel: SharedViewModelSelectedPlayers by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,20 +32,20 @@ class HostGameFragment : Fragment() {
             }
 
             // automatically add you as an existing player
-            playerYou.setUpPlayerView("Me", R.drawable.my_avatar, true)
+//            playerMyself.setUpPlayerView("Me", R.drawable.my_avatar, true)
 
             // initialize other players
-            playerYourTeammate.setAddButtonAction(genButtonAction {
-                sharedModelPlayersList.yourTeammate = it
-            })
+            playerTeammate.setAddButtonAction(genButtonAction(
+                sharedModel.teammate
+            ))
 
-            playerOpponent1.setAddButtonAction(genButtonAction {
-                sharedModelPlayersList.opponent1 = it
-            })
+            playerOpponent1.setAddButtonAction(genButtonAction (
+                sharedModel.opponent1
+                ))
 
-            playerOpponent2.setAddButtonAction(genButtonAction {
-                sharedModelPlayersList.opponent2 = it
-            })
+            playerOpponent2.setAddButtonAction(genButtonAction (
+                sharedModel.opponent2
+            ))
         }
 
         // TODO consider using data binding for each player view, which may require implementing the Player class first
@@ -54,11 +55,11 @@ class HostGameFragment : Fragment() {
     // a higher order function where f binds the selected player to correct entry in the shared viewmodel
     // 1. Thought about passing in just the entry (e.g. sharedViewModel.yourTeammate), but parameters are passed as val so assignment doesn't work
     // 2. setting `var teammate = sharedViewModel.yourTeammate` then assign teammate to new values does NOT change sharedViewModel.yourTeammate
-    private fun genButtonAction(f: (Player) -> Unit): (View) -> Unit {
+    private fun genButtonAction(playerLiveData : MutableLiveData<Player?>): (View) -> Unit {
         return { _: View ->
             // first set up shared view model
-            sharedModelPlayersList.callback = { selected: Player ->
-                f(selected)
+            sharedModel.callback = { selected: Player ->
+                playerLiveData.value = selected
                 navCtrl.navigateUp()
             }
 

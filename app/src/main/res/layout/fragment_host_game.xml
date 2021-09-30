@@ -13,29 +13,29 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:text="@string/select_my_team_str"
-        app:layout_constraintBottom_toTopOf="@+id/player_you"
+        app:layout_constraintBottom_toTopOf="@+id/player_myself"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread_inside" />
 
     <com.example.rankupandroid.PlayerView
-        android:id="@+id/player_you"
+        android:id="@+id/player_myself"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/player_your_teammate"
+        app:layout_constraintBottom_toTopOf="@+id/player_teammate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <com.example.rankupandroid.PlayerView
-        android:id="@+id/player_your_teammate"
+        android:id="@+id/player_teammate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/player_you" />
+        app:layout_constraintTop_toBottomOf="@+id/player_myself" />
 
     <TextView
         android:id="@+id/textView4"
@@ -46,7 +46,7 @@
         app:layout_constraintBottom_toTopOf="@+id/player_opponent2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/player_your_teammate" />
+        app:layout_constraintTop_toBottomOf="@+id/player_teammate" />
 
     <com.example.rankupandroid.PlayerView
         android:id="@+id/player_opponent1"

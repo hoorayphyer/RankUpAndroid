@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
-import com.example.rankupandroid.SharedViewModelHostGameFragPlayersListFrag
+import com.example.rankupandroid.SharedViewModelSelectedPlayers
 import com.example.rankupandroid.databinding.FragmentPlayersListBinding
 
 enum class ToPlayersListFrom {HostGameFrag}
@@ -17,7 +17,7 @@ class PlayersListFragment : Fragment() {
     private val viewModel = PlayersListViewModel(PlayersDataRepository())
     private val args : PlayersListFragmentArgs by navArgs()
 
-    private val sharedModelHostGame : SharedViewModelHostGameFragPlayersListFrag by activityViewModels()
+    private val sharedModelHostGame : SharedViewModelSelectedPlayers by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
