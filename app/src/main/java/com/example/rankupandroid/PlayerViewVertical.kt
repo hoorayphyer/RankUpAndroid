@@ -12,7 +12,7 @@ class PlayerViewVertical @JvmOverloads constructor(
     attrs: AttributeSet? = null,
 ) : ConstraintLayout(context, attrs) {
 
-    private lateinit var binding : PlayerViewVerticalBinding
+    private lateinit var binding: PlayerViewVerticalBinding
 
     init {
         init(attrs)
@@ -23,9 +23,11 @@ class PlayerViewVertical @JvmOverloads constructor(
 
         val ta = context.obtainStyledAttributes(attrs, R.styleable.PlayerViewVertical)
         try {
-            val playerName = ta.getString(R.styleable.PlayerViewVertical_player_name_vertical)?: "unknown name"
-            var playerImageId : Int? = ta.getResourceId(R.styleable.PlayerViewVertical_player_image_vertical, 0)
-            if ( playerImageId == 0) {
+            val playerName =
+                ta.getString(R.styleable.PlayerViewVertical_player_name_vertical) ?: "unknown name"
+            var playerImageId: Int? =
+                ta.getResourceId(R.styleable.PlayerViewVertical_player_image_vertical, 0)
+            if (playerImageId == 0) {
                 playerImageId = null
             }
             setUpPlayerView(playerName, playerImageId)

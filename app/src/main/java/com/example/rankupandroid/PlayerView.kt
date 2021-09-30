@@ -15,7 +15,7 @@ class PlayerView @JvmOverloads constructor(
         PlayerViewBinding.bind(View.inflate(context, R.layout.player_view, this))
 
 //    init {
-        //        init(attrs)
+    //        init(attrs)
 //    }
 
 //    private fun init(attrs: AttributeSet?) {

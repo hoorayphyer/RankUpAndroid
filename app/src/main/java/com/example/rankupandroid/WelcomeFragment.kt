@@ -10,7 +10,7 @@ import com.example.rankupandroid.databinding.FragmentWelcomeBinding
 
 class WelcomeFragment : Fragment() {
 
-    private lateinit var binding : FragmentWelcomeBinding
+    private lateinit var binding: FragmentWelcomeBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

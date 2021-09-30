@@ -10,14 +10,14 @@ import androidx.navigation.fragment.navArgs
 import com.example.rankupandroid.SharedViewModelSelectedPlayers
 import com.example.rankupandroid.databinding.FragmentPlayersListBinding
 
-enum class ToPlayersListFrom {HostGameFrag}
+enum class ToPlayersListFrom { HostGameFrag }
 
 class PlayersListFragment : Fragment() {
-    private lateinit var binding : FragmentPlayersListBinding
+    private lateinit var binding: FragmentPlayersListBinding
     private val viewModel = PlayersListViewModel(PlayersDataRepository())
-    private val args : PlayersListFragmentArgs by navArgs()
+    private val args: PlayersListFragmentArgs by navArgs()
 
-    private val sharedModelHostGame : SharedViewModelSelectedPlayers by activityViewModels()
+    private val sharedModelHostGame: SharedViewModelSelectedPlayers by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +33,7 @@ class PlayersListFragment : Fragment() {
 
         // the following supplies the recycler view with concrete contents
         viewModel.activePlayers.observe(viewLifecycleOwner, {
-            it?.let{
+            it?.let {
                 playersAdapter.submitList(it)
             }
         })

@@ -6,18 +6,18 @@ import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 
-data class Player (
+data class Player(
     val id: Long,
     val name: String,
-    val avatarIdInt : Int? = null,
-    val avatarIdStr : String? = null
+    val avatarIdInt: Int? = null,
+    val avatarIdStr: String? = null
 )
 
-fun glideLoad(context: Context, player: Player ): RequestBuilder<Drawable> {
+fun glideLoad(context: Context, player: Player): RequestBuilder<Drawable> {
     val reqMan = Glide.with(context)
     return when {
         player.avatarIdInt != null -> {
-           reqMan.load(player.avatarIdInt)
+            reqMan.load(player.avatarIdInt)
         }
         player.avatarIdStr != null -> {
             val imgUri = player.avatarIdStr.toUri().buildUpon().scheme("https").build()

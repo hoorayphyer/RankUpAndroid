@@ -8,7 +8,7 @@ import androidx.lifecycle.liveData
 class SharedViewModelSelectedPlayers : ViewModel() {
     var callback: (player: Player) -> Unit = {} // default is an no-op
 
-    val myself : LiveData<Player?> by lazy {
+    val myself: LiveData<Player?> by lazy {
         liveData { Player(0, "Me", R.drawable.my_avatar) }
     }
 

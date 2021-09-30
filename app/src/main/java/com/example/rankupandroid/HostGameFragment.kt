@@ -35,17 +35,23 @@ class HostGameFragment : Fragment() {
 //            playerMyself.setUpPlayerView("Me", R.drawable.my_avatar, true)
 
             // initialize other players
-            playerTeammate.setAddButtonAction(genButtonAction(
-                sharedModel.teammate
-            ))
+            playerTeammate.setAddButtonAction(
+                genButtonAction(
+                    sharedModel.teammate
+                )
+            )
 
-            playerOpponent1.setAddButtonAction(genButtonAction (
-                sharedModel.opponent1
-                ))
+            playerOpponent1.setAddButtonAction(
+                genButtonAction(
+                    sharedModel.opponent1
+                )
+            )
 
-            playerOpponent2.setAddButtonAction(genButtonAction (
-                sharedModel.opponent2
-            ))
+            playerOpponent2.setAddButtonAction(
+                genButtonAction(
+                    sharedModel.opponent2
+                )
+            )
         }
 
         // TODO consider using data binding for each player view, which may require implementing the Player class first
@@ -55,7 +61,7 @@ class HostGameFragment : Fragment() {
     // a higher order function where f binds the selected player to correct entry in the shared viewmodel
     // 1. Thought about passing in just the entry (e.g. sharedViewModel.yourTeammate), but parameters are passed as val so assignment doesn't work
     // 2. setting `var teammate = sharedViewModel.yourTeammate` then assign teammate to new values does NOT change sharedViewModel.yourTeammate
-    private fun genButtonAction(playerLiveData : MutableLiveData<Player?>): (View) -> Unit {
+    private fun genButtonAction(playerLiveData: MutableLiveData<Player?>): (View) -> Unit {
         return { _: View ->
             // first set up shared view model
             sharedModel.callback = { selected: Player ->

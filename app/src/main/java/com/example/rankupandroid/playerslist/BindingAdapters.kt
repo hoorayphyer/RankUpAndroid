@@ -7,8 +7,8 @@ import com.example.rankupandroid.glideLoad
 
 // this sets the method to retrieve attribute "avatarUrl", used in players_list_item.xml
 @BindingAdapter("avatarId")
-fun bindPlayerAvatar(imgView : ImageView, player : Player) {
+fun bindPlayerAvatar(imgView: ImageView, player: Player) {
     glideLoad(imgView.context, player)
 //            .placeholder(R.drawable.loading_spinner) // TODO
-            .into(imgView)
+        .into(imgView)
 }
