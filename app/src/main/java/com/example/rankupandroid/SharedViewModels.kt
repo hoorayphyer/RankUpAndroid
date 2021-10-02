@@ -8,7 +8,7 @@ class SharedViewModelSelectedPlayers : ViewModel() {
     var callback: (player: Player) -> Unit = {} // default is an no-op
 
     private val _myself: MutableLiveData<Player> by lazy {
-        MutableLiveData<Player>(Player(0, "Me", R.drawable.my_avatar))
+        MutableLiveData<Player>(Player(0, "Me", R.drawable.my_avatar, null, true))
     }
 
     val myself: LiveData<Player> = _myself

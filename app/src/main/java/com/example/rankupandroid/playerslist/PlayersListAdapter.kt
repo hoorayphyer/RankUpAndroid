@@ -1,6 +1,7 @@
 package com.example.rankupandroid.playerslist
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -15,12 +16,17 @@ class PlayersListAdapter(private val clickListener: PlayerItemClickListener) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Player, clickListener: PlayerItemClickListener) {
-            binding.playerListItemName.apply {
-                text = item.name
-            }
+            // this binding is a must regardless of participating
             binding.player = item
-            binding.clickListener = clickListener
-            binding.executePendingBindings()
+            if (item.participated) {
+                itemView.visibility = View.GONE
+            } else {
+                binding.apply {
+                    playerListItemName.text = item.name
+                    this.clickListener = clickListener
+                    executePendingBindings()
+                }
+            }
         }
 
         companion object {

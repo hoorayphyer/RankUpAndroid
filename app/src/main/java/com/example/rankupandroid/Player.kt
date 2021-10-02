@@ -10,7 +10,9 @@ data class Player(
     val id: Long,
     val name: String,
     val avatarIdInt: Int? = null,
-    val avatarIdStr: String? = null
+    val avatarIdStr: String? = null,
+
+    var participated: Boolean = false
 )
 
 fun glideLoad(context: Context, player: Player): RequestBuilder<Drawable> {
