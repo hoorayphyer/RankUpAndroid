@@ -31,30 +31,46 @@ class HostGameFragment : Fragment() {
                 navCtrl.navigate(R.id.action_hostGameFragment_to_rankUpFragment)
             }
 
-            // automatically add you as an existing player
-//            playerMyself.setUpPlayerView("Me", R.drawable.my_avatar, true)
+            sharedModel.myself.observe(viewLifecycleOwner, {
+                playerMyself.updateView(it)
+            })
 
-            // initialize other players
-            playerTeammate.setAddButtonAction(
-                genButtonAction(
-                    sharedModel.teammate
-                )
-            )
+            sharedModel.teammate.observe(viewLifecycleOwner, {
+                playerTeammate.apply {
+                    updateView(it)
+                    setAddButtonAction(
+                        genButtonAction(
+                            sharedModel.teammate
+                        )
+                    )
+                }
+            })
 
-            playerOpponent1.setAddButtonAction(
-                genButtonAction(
-                    sharedModel.opponent1
-                )
-            )
+            sharedModel.opponent1.observe(viewLifecycleOwner, {
+                playerOpponent1.apply {
+                    updateView(it)
+                    setAddButtonAction(
+                        genButtonAction(
+                            sharedModel.opponent1
+                        )
+                    )
+                }
 
-            playerOpponent2.setAddButtonAction(
-                genButtonAction(
-                    sharedModel.opponent2
-                )
-            )
+            })
+
+            sharedModel.opponent2.observe(viewLifecycleOwner, {
+                playerOpponent2.apply {
+                    updateView(it)
+                    setAddButtonAction(
+                        genButtonAction(
+                            sharedModel.opponent2
+                        )
+                    )
+                }
+            })
         }
 
-        // TODO consider using data binding for each player view, which may require implementing the Player class first
+
         return binding.root
     }
 

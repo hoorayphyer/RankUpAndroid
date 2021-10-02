@@ -3,14 +3,15 @@ package com.example.rankupandroid
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 
 class SharedViewModelSelectedPlayers : ViewModel() {
     var callback: (player: Player) -> Unit = {} // default is an no-op
 
-    val myself: LiveData<Player?> by lazy {
-        liveData { Player(0, "Me", R.drawable.my_avatar) }
+    private val _myself: MutableLiveData<Player> by lazy {
+        MutableLiveData<Player>(Player(0, "Me", R.drawable.my_avatar))
     }
+
+    val myself: LiveData<Player> = _myself
 
     val teammate: MutableLiveData<Player?> by lazy {
         MutableLiveData<Player?>(null)
