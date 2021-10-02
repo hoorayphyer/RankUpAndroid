@@ -21,8 +21,10 @@
 
     <com.example.rankupandroid.PlayerView
         android:id="@+id/player_myself"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/host_game_player_view_margin"
+        android:layout_marginRight="@dimen/host_game_player_view_margin"
         app:layout_constraintBottom_toTopOf="@+id/player_teammate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,8 +32,10 @@
 
     <com.example.rankupandroid.PlayerView
         android:id="@+id/player_teammate"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/host_game_player_view_margin"
+        android:layout_marginRight="@dimen/host_game_player_view_margin"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,8 +54,10 @@
 
     <com.example.rankupandroid.PlayerView
         android:id="@+id/player_opponent1"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/host_game_player_view_margin"
+        android:layout_marginRight="@dimen/host_game_player_view_margin"
         app:layout_constraintBottom_toTopOf="@+id/host_start_game_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,8 +65,10 @@
 
     <com.example.rankupandroid.PlayerView
         android:id="@+id/player_opponent2"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/host_game_player_view_margin"
+        android:layout_marginRight="@dimen/host_game_player_view_margin"
         app:layout_constraintBottom_toTopOf="@+id/player_opponent1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

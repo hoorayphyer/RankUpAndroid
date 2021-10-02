@@ -32,12 +32,12 @@ class HostGameFragment : Fragment() {
             }
 
             sharedModel.myself.observe(viewLifecycleOwner, {
-                playerMyself.updateView(it)
+                playerMyself.updateView(it, false)
             })
 
             sharedModel.teammate.observe(viewLifecycleOwner, {
                 playerTeammate.apply {
-                    updateView(it)
+                    updateView(it, true)
                     setAddButtonAction(
                         genButtonAction(
                             sharedModel.teammate
@@ -48,7 +48,7 @@ class HostGameFragment : Fragment() {
 
             sharedModel.opponent1.observe(viewLifecycleOwner, {
                 playerOpponent1.apply {
-                    updateView(it)
+                    updateView(it,true)
                     setAddButtonAction(
                         genButtonAction(
                             sharedModel.opponent1
@@ -60,7 +60,7 @@ class HostGameFragment : Fragment() {
 
             sharedModel.opponent2.observe(viewLifecycleOwner, {
                 playerOpponent2.apply {
-                    updateView(it)
+                    updateView(it,true)
                     setAddButtonAction(
                         genButtonAction(
                             sharedModel.opponent2
