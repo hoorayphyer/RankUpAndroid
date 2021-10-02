@@ -27,7 +27,7 @@ class PlayersDataRepository {
         )
         return (remote.queryPlayers() zip avatarUrls)
             .map {
-                Player(it.first.account_id, it.first.nickname, null, it.second)
+                Player(it.first.account_id, it.first.nickname, null, it.second, false)
             }
     }
 }
