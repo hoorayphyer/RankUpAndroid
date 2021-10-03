@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -19,11 +18,12 @@ class HostGameFragment : Fragment() {
     private lateinit var binding: FragmentHostGameBinding
     private lateinit var navCtrl: NavController
     private val sharedModel: SharedViewModelSelectedPlayers by activityViewModels()
-    private val playersListModel: PlayersListViewModel by viewModels(
-//        factoryProducer = {
-//            PlayersListViewModelFactory(PlayersDataRepository())
-//        }
-    )
+
+    // use `activityViewModels` to retrieve the same instance bound to the lifeCycle. see
+    // PlayersListFragment for details
+    // Also note that no factory for PlayersListViewModel is provided here because it will be
+    // first created by PlayersListFragment
+    private val playersListModel: PlayersListViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -109,9 +109,13 @@ class HostGameFragment : Fragment() {
             }
 
         } else {
-            //perform remove functionality
-            // after an item is selected, the + button will become a x button. The following changes its click listener
+            // perform remove functionality
+            // after an item is selected, the + button will become a x button. The following
+            // changes its click listener
             return { _: View ->
+                // toggle this player before deletion
+                val oldVal = playerLiveData.value!!
+                playersListModel.toggleParticipation(oldVal)
                 playerLiveData.value = null
             }
         }

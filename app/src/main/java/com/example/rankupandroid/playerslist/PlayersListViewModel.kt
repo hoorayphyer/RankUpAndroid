@@ -17,12 +17,12 @@ class PlayersListViewModel(private val repo: PlayersDataRepository) : ViewModel(
         }
     }
 
-    fun updatePlayer(player: Player, participated: Boolean) {
+    fun toggleParticipation(player: Player) {
         _activePlayers.apply {
             value?.find {
                 it.id == player.id
             }?.let {
-                it.participated = participated
+                it.participated = !it.participated
                 // force updating mutableLiveData
                 value = value!!
             }

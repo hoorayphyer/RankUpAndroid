@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.example.rankupandroid.Player
 import com.example.rankupandroid.SharedViewModelSelectedPlayers
 import com.example.rankupandroid.databinding.FragmentPlayersListBinding
 
@@ -17,14 +15,25 @@ enum class ToPlayersListFrom { HostGameFrag }
 class PlayersListFragment : Fragment() {
     private lateinit var binding: FragmentPlayersListBinding
 
-    private val viewModel: PlayersListViewModel by viewModels(
-        // retrieve the same instance from parent fragment
-        ownerProducer = { requireParentFragment() },
-        // this is the way to construct viewmodels with parameters
-        factoryProducer = {
-            PlayersListViewModelFactory(PlayersDataRepository())
-        }
-    )
+    // use `activityViewModels` to retrieve the same instance as in HostGameFragment
+    // didn't use `viewModels()` because navigation doesn't create a parent-child relationship between
+    // two fragments
+
+    /* Below is the comment from a mentor
+    *
+    * When we get the ViewModel using `by viewModels()`, the ViewModel will be created for the
+    * caller's Lifecycle and will create if not created. Hence, in Fragment's, this will create a
+    * new instance of the ViewModel as both Fragment's will have different Lifecycle. Instead, you
+    *  will need to use `by activityViewModels()` which will create the ViewModel for Activity
+    * Lifecycle and since multiple Fragment's are hoisted within the same Activity Lifecycle,
+    * using this method will create the ViewModel only once and will return the same instance in
+    * subsequent calls.
+    * */
+
+
+    private val viewModel: PlayersListViewModel by activityViewModels {
+        PlayersListViewModelFactory(PlayersDataRepository())
+    }
     private val args: PlayersListFragmentArgs by navArgs()
 
     private val sharedModel: SharedViewModelSelectedPlayers by activityViewModels()
@@ -40,7 +49,7 @@ class PlayersListFragment : Fragment() {
         }
 
         val itemClickListener = PlayerItemClickListener {
-            viewModel.updatePlayer(it, participated = true)
+            viewModel.toggleParticipation(it)
             callback(it)
         }
 
@@ -53,13 +62,6 @@ class PlayersListFragment : Fragment() {
 
         binding.playerRecyclerView.adapter = playersAdapter
 
-        // subscribe
-        sharedModel.playerChangeCallback = { oldValue: Player?, newValue: Player? ->
-            oldValue?.let {
-                // toggle its participation
-                viewModel.updatePlayer(it, !it.participated)
-            }
-        }
         return binding.root
     }
 }
