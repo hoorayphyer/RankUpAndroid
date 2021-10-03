@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.example.rankupandroid.Player
 import com.example.rankupandroid.SharedViewModelSelectedPlayers
 import com.example.rankupandroid.databinding.FragmentPlayersListBinding
 
@@ -17,14 +18,16 @@ class PlayersListFragment : Fragment() {
     private lateinit var binding: FragmentPlayersListBinding
 
     private val viewModel: PlayersListViewModel by viewModels(
+        // retrieve the same instance from parent fragment
         ownerProducer = { requireParentFragment() },
+        // this is the way to construct viewmodels with parameters
         factoryProducer = {
             PlayersListViewModelFactory(PlayersDataRepository())
         }
     )
     private val args: PlayersListFragmentArgs by navArgs()
 
-    private val sharedModelHostGame: SharedViewModelSelectedPlayers by activityViewModels()
+    private val sharedModel: SharedViewModelSelectedPlayers by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +36,7 @@ class PlayersListFragment : Fragment() {
         binding = FragmentPlayersListBinding.inflate(layoutInflater, container, false)
 
         val callback = when (args.from) {
-            ToPlayersListFrom.HostGameFrag -> sharedModelHostGame.callback
+            ToPlayersListFrom.HostGameFrag -> sharedModel.callback
         }
 
         val itemClickListener = PlayerItemClickListener {
@@ -49,6 +52,14 @@ class PlayersListFragment : Fragment() {
         })
 
         binding.playerRecyclerView.adapter = playersAdapter
+
+        // subscribe
+        sharedModel.playerChangeCallback = { oldValue: Player?, newValue: Player? ->
+            oldValue?.let {
+                // toggle its participation
+                viewModel.updatePlayer(it, !it.participated)
+            }
+        }
         return binding.root
     }
 }

@@ -3,6 +3,7 @@ package com.example.rankupandroid
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import kotlin.properties.Delegates
 
 class SharedViewModelSelectedPlayers : ViewModel() {
     var callback: (player: Player) -> Unit = {} // default is an no-op
@@ -13,9 +14,13 @@ class SharedViewModelSelectedPlayers : ViewModel() {
 
     val myself: LiveData<Player> = _myself
 
-    val teammate: MutableLiveData<Player?> by lazy {
-        MutableLiveData<Player?>(null)
+    var playerChangeCallback: (Player?, Player?) -> Unit =
+        { oldValue: Player?, newValue: Player? -> }
+
+    val teammate: MutableLiveData<Player?> by Delegates.observable(MutableLiveData<Player?>(null)) { _, oldValue, newValue ->
+        playerChangeCallback(oldValue.value, newValue.value)
     }
+
     val opponent1: MutableLiveData<Player?> by lazy {
         MutableLiveData<Player?>(null)
     }
