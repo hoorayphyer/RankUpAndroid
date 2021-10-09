@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
@@ -35,7 +36,16 @@ class HostGameFragment : Fragment() {
 
         binding.apply {
             hostStartGameButton.setOnClickListener {
-                navCtrl.navigate(R.id.action_hostGameFragment_to_rankUpFragment)
+                if (sharedModel.myself.value == null || sharedModel.teammate.value == null ||
+                    sharedModel.opponent1.value == null || sharedModel.opponent2.value == null
+                ) {
+                    Toast.makeText(
+                        context, "Fail to start a game: all participants must be " +
+                                "specified!!", Toast.LENGTH_LONG
+                    ).show()
+                } else {
+                    navCtrl.navigate(R.id.action_hostGameFragment_to_rankUpFragment)
+                }
             }
 
             sharedModel.myself.observe(viewLifecycleOwner, {
@@ -47,8 +57,7 @@ class HostGameFragment : Fragment() {
                     updateView(it, true)
                     setButtonAction(
                         genButtonAction(
-                            sharedModel.teammate,
-                            this
+                            sharedModel.teammate
                         )
                     )
                 }
@@ -59,8 +68,7 @@ class HostGameFragment : Fragment() {
                     updateView(it, true)
                     setButtonAction(
                         genButtonAction(
-                            sharedModel.opponent1,
-                            this
+                            sharedModel.opponent1
                         )
                     )
                 }
@@ -72,8 +80,7 @@ class HostGameFragment : Fragment() {
                     updateView(it, true)
                     setButtonAction(
                         genButtonAction(
-                            sharedModel.opponent2,
-                            this
+                            sharedModel.opponent2
                         )
                     )
                 }
@@ -88,8 +95,7 @@ class HostGameFragment : Fragment() {
     // 1. Thought about passing in just the entry (e.g. sharedViewModel.yourTeammate), but parameters are passed as val so assignment doesn't work
     // 2. setting `var teammate = sharedViewModel.yourTeammate` then assign teammate to new values does NOT change sharedViewModel.yourTeammate
     private fun genButtonAction(
-        playerLiveData: MutableLiveData<Player?>,
-        playerView: PlayerView
+        playerLiveData: MutableLiveData<Player?>
     ): (View) -> Unit {
         if (playerLiveData.value == null) {
             // perform add functionality

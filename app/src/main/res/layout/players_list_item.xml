@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="player"
             type="com.example.rankupandroid.Player" />
+
         <variable
             name="clickListener"
-            type="com.example.rankupandroid.playerslist.PlayerItemClickListener"/>
+            type="com.example.rankupandroid.playerslist.PlayerItemClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

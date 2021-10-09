@@ -2,7 +2,7 @@ package com.example.rankupandroid
 
 import android.content.Context
 import android.util.AttributeSet
-import androidx.appcompat.content.res.AppCompatResources
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.rankupandroid.databinding.PlayerViewVerticalBinding
 
@@ -11,13 +11,16 @@ class PlayerViewVertical @JvmOverloads constructor(
     attrs: AttributeSet? = null,
 ) : ConstraintLayout(context, attrs) {
 
-    private lateinit var binding: PlayerViewVerticalBinding
+    private var binding: PlayerViewVerticalBinding =
+        PlayerViewVerticalBinding.bind(View.inflate(context, R.layout.player_view_vertical, this))
 
-    private fun setUpPlayerView(playerName: String, playerImageId: Int?) {
-        binding.playerNameVertical.text = playerName
-        if (playerImageId != null) {
-            val drawable = AppCompatResources.getDrawable(context, playerImageId)
-            binding.playerImageVertical.setImageDrawable(drawable)
+    fun updateViewVertical(
+        player: Player?
+    ) {
+        requireNotNull(player)
+        binding.apply {
+                playerNameVertical.text = player.name
+                glideLoad(context, player).into(playerImageVertical)
         }
     }
 }

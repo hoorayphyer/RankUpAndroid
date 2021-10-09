@@ -7,38 +7,25 @@
     tools:context=".RankUpFragment">
 
     <com.example.rankupandroid.PlayerView
-        android:id="@+id/playerView2"
+        android:id="@+id/teammate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/play_card_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
-
-    <com.example.rankupandroid.PlayerView
-        android:id="@+id/playerView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="spread_inside" />
-
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="0dp"
-        android:layout_height="125dp"
-        app:layout_constraintBottom_toTopOf="@+id/playerView2"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playerView">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </ScrollView>
+    <com.example.rankupandroid.PlayerView
+        android:id="@+id/myself"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/play_card_button"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
     <Button
         android:id="@+id/play_card_button"
@@ -48,7 +35,50 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/myself"
+        app:layout_constraintTop_toTopOf="@+id/myself" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="517dp"
+        android:layout_height="97dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/myself"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playerView2" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="138dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/recyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/teammate"></LinearLayout>
+
+    <com.example.rankupandroid.PlayerViewVertical
+        android:id="@+id/opponent2"
+        android:layout_width="wrap_content"
+        android:layout_height="270dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/opponent1"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.example.rankupandroid.PlayerViewVertical
+        android:id="@+id/opponent1"
+        android:layout_width="wrap_content"
+        android:layout_height="288dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/opponent2"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
