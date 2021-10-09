@@ -1,4 +1,4 @@
-package com.example.rankupandroid
+package com.example.rankupandroid.rankup
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
+import com.example.rankupandroid.SharedViewModelSelectedPlayers
 import com.example.rankupandroid.databinding.FragmentRankUpBinding
 
 class RankUpFragment : Fragment() {

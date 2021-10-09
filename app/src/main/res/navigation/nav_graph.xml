@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/rankUpFragment"
-        android:name="com.example.rankupandroid.RankUpFragment"
+        android:name="com.example.rankupandroid.rankup.RankUpFragment"
         android:label="fragment_rank_up"
         tools:layout="@layout/fragment_rank_up" >
         <action
