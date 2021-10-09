@@ -11,10 +11,13 @@
         style="@style/game_team_heading"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:text="@string/select_my_team_str"
         app:layout_constraintBottom_toTopOf="@+id/player_myself"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread_inside" />
@@ -23,10 +26,10 @@
         android:id="@+id/player_myself"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/host_game_player_view_margin"
-        android:layout_marginRight="@dimen/host_game_player_view_margin"
         app:layout_constraintBottom_toTopOf="@+id/player_teammate"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/player_opponent2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -34,10 +37,10 @@
         android:id="@+id/player_teammate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/host_game_player_view_margin"
-        android:layout_marginRight="@dimen/host_game_player_view_margin"
-        app:layout_constraintBottom_toTopOf="@+id/textView4"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/host_start_game_button"
+        app:layout_constraintEnd_toStartOf="@+id/player_opponent1"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/player_myself" />
 
@@ -46,33 +49,35 @@
         style="@style/game_team_heading"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:text="@string/selec_opponent_team_str"
-        app:layout_constraintBottom_toTopOf="@+id/player_opponent2"
+        app:layout_constraintBottom_toBottomOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/player_teammate" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintTop_toTopOf="@+id/textView3" />
 
     <com.example.rankupandroid.PlayerView
         android:id="@+id/player_opponent1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/host_game_player_view_margin"
-        android:layout_marginRight="@dimen/host_game_player_view_margin"
-        app:layout_constraintBottom_toTopOf="@+id/host_start_game_button"
+        app:layout_constraintBottom_toBottomOf="@+id/player_teammate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/player_opponent2" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/player_teammate"
+        app:layout_constraintTop_toTopOf="@+id/player_teammate"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.example.rankupandroid.PlayerView
         android:id="@+id/player_opponent2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/host_game_player_view_margin"
-        android:layout_marginRight="@dimen/host_game_player_view_margin"
-        app:layout_constraintBottom_toTopOf="@+id/player_opponent1"
+        app:layout_constraintBottom_toBottomOf="@+id/player_myself"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/player_myself"
+        app:layout_constraintTop_toTopOf="@+id/player_myself"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/host_start_game_button"
@@ -81,7 +86,8 @@
         android:text="@string/host_start_game_button_str"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/player_opponent1" />
+        app:layout_constraintTop_toBottomOf="@+id/player_teammate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
