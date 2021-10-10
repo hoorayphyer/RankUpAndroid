@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintBottom_toTopOf="@+id/deck"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,26 +43,13 @@
         android:id="@+id/cardsRecyclerView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/myself"
         app:layout_constraintEnd_toStartOf="@+id/opponent1"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/opponent2"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/cardsRecyclerView"
-        app:layout_constraintEnd_toEndOf="@+id/cardsRecyclerView"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/cardsRecyclerView"
-        app:layout_constraintTop_toBottomOf="@+id/teammate" />
+        app:layout_constraintTop_toBottomOf="@+id/deck" />
 
     <com.example.rankupandroid.PlayerViewVertical
         android:id="@+id/opponent2"
@@ -86,5 +73,16 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/cardsRecyclerView"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/deck"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layoutDescription="@xml/motion_scene_dealing_card"
+        app:layout_constraintBottom_toTopOf="@+id/cardsRecyclerView"
+        app:layout_constraintEnd_toEndOf="@+id/cardsRecyclerView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/cardsRecyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/teammate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
