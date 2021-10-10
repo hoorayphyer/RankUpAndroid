@@ -1,9 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MotionScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <!-- Define a Transition -->
+    <ConstraintSet android:id="@+id/center" >
+        <Constraint
+            android:id="@+id/cardToBeDealt"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/card_height"
+            app:layout_constraintEnd_toStartOf="@+id/opponent1"
+            app:layout_constraintStart_toEndOf="@+id/opponent2"
+            app:layout_constraintTop_toBottomOf="@+id/teammate"
+            app:layout_constraintBottom_toTopOf="@+id/cardsRecyclerView" />
+    </ConstraintSet>
 
-    <!-- Define @id/start -->
+    <ConstraintSet android:id="@+id/bottom" >
+        <Constraint
+            android:id="@+id/cardToBeDealt"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/card_height"
+            app:layout_constraintStart_toEndOf="@+id/opponent2"
+            app:layout_constraintEnd_toStartOf="@+id/opponent1"
+            app:layout_constraintTop_toTopOf="@+id/cardsRecyclerView" />
+    </ConstraintSet>
 
-    <!-- Define @id/end -->
+
+    <Transition
+        app:constraintSetStart="@+id/center"
+        app:constraintSetEnd="@+id/bottom"
+        app:duration="1000">
+        <OnClick
+            app:targetId="@id/cardToBeDealt"
+            app:clickAction="toggle" />
+    </Transition>
 </MotionScreen>
