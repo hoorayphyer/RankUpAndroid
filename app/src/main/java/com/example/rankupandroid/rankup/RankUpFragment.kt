@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.example.rankupandroid.SharedViewModelSelectedPlayers
 import com.example.rankupandroid.databinding.FragmentRankUpBinding
 
 class RankUpFragment : Fragment() {
     private lateinit var binding: FragmentRankUpBinding
+    private val viewModel: RankUpViewModel by viewModels()
     private val sharedModel: SharedViewModelSelectedPlayers by activityViewModels()
 
     override fun onCreateView(
@@ -38,6 +40,18 @@ class RankUpFragment : Fragment() {
                 opponent2.updateViewVertical(it)
             })
         }
+
+        val itemClickListener = CardItemClickListener {
+        }
+
+        val cardsAdapter = CardsAdapter(itemClickListener)
+
+        // the following supplies the recycler view with concrete contents
+        viewModel.cardsInHand.observe(viewLifecycleOwner, {
+            cardsAdapter.submitList(it)
+        })
+
+        binding.cardsRecyclerView.adapter = cardsAdapter
 
         return binding.root
     }

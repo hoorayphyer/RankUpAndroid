@@ -19,8 +19,8 @@ class PlayerViewVertical @JvmOverloads constructor(
     ) {
         requireNotNull(player)
         binding.apply {
-                playerNameVertical.text = player.name
-                glideLoad(context, player).into(playerImageVertical)
+            playerNameVertical.text = player.name
+            glideLoad(context, player).into(playerImageVertical)
         }
     }
 }

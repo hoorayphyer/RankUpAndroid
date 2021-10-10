@@ -8,4 +8,5 @@
     <dimen name="player_name_width_in_recycler_view">200dp</dimen>
     <dimen name="player_name_width_in_player_view">160dp</dimen>
     <dimen name="host_game_player_view_margin">32dp</dimen>
+    <dimen name="card_height">90dp</dimen>
 </resources>

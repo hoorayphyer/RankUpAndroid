@@ -15,7 +15,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="spread_inside" />
 
     <com.example.rankupandroid.PlayerView
         android:id="@+id/myself"
@@ -25,7 +25,7 @@
         app:layout_constraintEnd_toStartOf="@+id/play_card_button"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+        app:layout_constraintTop_toBottomOf="@+id/cardsRecyclerView" />
 
     <Button
         android:id="@+id/play_card_button"
@@ -39,33 +39,34 @@
         app:layout_constraintTop_toTopOf="@+id/myself" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="517dp"
-        android:layout_height="97dp"
+        android:id="@+id/cardsRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/myself"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/opponent1"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/opponent2"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
-        android:layout_height="138dp"
+        android:layout_height="0dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerView"
+        app:layout_constraintBottom_toTopOf="@+id/cardsRecyclerView"
+        app:layout_constraintEnd_toEndOf="@+id/cardsRecyclerView"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/recyclerView"
-        app:layout_constraintTop_toBottomOf="@+id/teammate"></LinearLayout>
+        app:layout_constraintStart_toStartOf="@+id/cardsRecyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/teammate" />
 
     <com.example.rankupandroid.PlayerViewVertical
         android:id="@+id/opponent2"
         android:layout_width="wrap_content"
         android:layout_height="270dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/opponent1"
+        app:layout_constraintEnd_toStartOf="@+id/cardsRecyclerView"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +79,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/opponent2"
+        app:layout_constraintStart_toEndOf="@+id/cardsRecyclerView"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
