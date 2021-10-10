@@ -10,6 +10,8 @@ class RankUpViewModel : ViewModel() {
 
     init {
         // TODO hard coded for tests
-        _cardsInHand.value = listOf(Card(2), Card(2), Card(2), Card(2), Card(2))
+        _cardsInHand.value = (0..53).map {
+            Card(it)
+        }
     }
 }
