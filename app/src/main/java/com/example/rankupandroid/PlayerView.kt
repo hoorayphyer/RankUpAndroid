@@ -18,7 +18,7 @@ class PlayerView @JvmOverloads constructor(
         PlayerViewBinding.bind(View.inflate(context, R.layout.player_view, this))
 
 
-    private fun setVisibility(specified: Boolean, deletable: Boolean) {
+    private fun setVisibility(specified: Boolean, deletable: Boolean, actionButtonGone: Boolean) {
         binding.apply {
             if (specified) {
                 actionButton.apply {
@@ -39,15 +39,19 @@ class PlayerView @JvmOverloads constructor(
                 playerName.visibility = View.INVISIBLE
                 playerImage.visibility = View.INVISIBLE
             }
+            if (actionButtonGone) {
+                actionButton.visibility = View.GONE
+            }
         }
     }
 
     fun updateView(
         player: Player?,
-        deletable: Boolean
+        deletable: Boolean,
+        actionButtonGone: Boolean = false
     ) {
         binding.apply {
-            setVisibility(player != null, deletable)
+            setVisibility(player != null, deletable, actionButtonGone)
             // initialize clickListener to null. Allow this to be later specified
             actionButton.setOnClickListener(null)
 

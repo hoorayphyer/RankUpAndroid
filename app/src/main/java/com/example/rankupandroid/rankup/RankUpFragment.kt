@@ -25,11 +25,11 @@ class RankUpFragment : Fragment() {
 
         binding.apply {
             sharedModel.myself.observe(viewLifecycleOwner, {
-                myself.updateView(it, false)
+                myself.updateView(it, deletable = false, actionButtonGone = true)
             })
 
             sharedModel.teammate.observe(viewLifecycleOwner, {
-                teammate.updateView(it, false)
+                teammate.updateView(it, deletable = false, actionButtonGone = true)
             })
 
             sharedModel.opponent1.observe(viewLifecycleOwner, {
