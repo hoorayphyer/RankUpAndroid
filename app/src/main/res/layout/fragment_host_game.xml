@@ -27,7 +27,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/player_teammate"
-        app:layout_constraintEnd_toStartOf="@+id/player_opponent2"
+        app:layout_constraintEnd_toStartOf="@+id/player_opponent1"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +38,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/host_start_game_button"
-        app:layout_constraintEnd_toStartOf="@+id/player_opponent1"
+        app:layout_constraintEnd_toStartOf="@+id/player_opponent2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,23 +61,22 @@
         android:id="@+id/player_opponent1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/player_teammate"
+        app:layout_constraintBottom_toBottomOf="@+id/player_myself"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/player_teammate"
-        app:layout_constraintTop_toTopOf="@+id/player_teammate"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toEndOf="@+id/player_myself"
+        app:layout_constraintTop_toTopOf="@+id/player_myself" />
 
     <com.example.rankupandroid.PlayerView
         android:id="@+id/player_opponent2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/player_myself"
+        app:layout_constraintBottom_toBottomOf="@+id/player_teammate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/player_myself"
-        app:layout_constraintTop_toTopOf="@+id/player_myself"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toEndOf="@+id/player_teammate"
+        app:layout_constraintTop_toTopOf="@+id/player_teammate" />
+
 
     <Button
         android:id="@+id/host_start_game_button"
