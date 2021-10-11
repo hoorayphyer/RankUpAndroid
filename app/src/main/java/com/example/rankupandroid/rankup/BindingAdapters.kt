@@ -2,7 +2,6 @@ package com.example.rankupandroid.rankup
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import com.bumptech.glide.Glide
 
 // card images are from
 // https://commons.wikimedia.org/wiki/Category:SVG_playing_cards_1
@@ -34,5 +33,7 @@ fun bindCardImage(imgView: ImageView, card: Card) {
         CardImageArray[card.value], "drawable",
         imgView.context.packageName
     )
-    Glide.with(imgView.context).load(cardImg).into(imgView)
+    imgView.setImageResource(cardImg)
+    // NOTE using the following Glide call caused border to be drawn first, which looked weird.
+    // Glide.with(imgView.context).load(cardImg).into(imgView)
 }

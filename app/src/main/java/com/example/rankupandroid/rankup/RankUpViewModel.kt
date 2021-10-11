@@ -13,10 +13,10 @@ class RankUpViewModel : ViewModel() {
     val cardsInHand: LiveData<ArrayList<Card>> = _cardsInHand
 
     private val _gamePhase = MutableLiveData(GamePhase.END)
-    val gamePhase : LiveData<GamePhase> = _gamePhase
+    val gamePhase: LiveData<GamePhase> = _gamePhase
 
-    val dealingBegin : Int = 0
-    val dealingEnd : Int = 12
+    val dealingBegin: Int = 0
+    val dealingEnd: Int = 12
 
     private val handOpponent1 = arrayListOf<Card>()
     private val handTeammate = arrayListOf<Card>()
@@ -33,9 +33,9 @@ class RankUpViewModel : ViewModel() {
         cardSequence = (0..53).toMutableList()
     }
 
-    fun dealCardTo(playerInt : Int) {
+    fun dealCardTo(playerInt: Int) {
         val card = Card(cardSequence.removeFirst())
-        when( playerInt % 4 ) {
+        when (playerInt % 4) {
             0 -> {
                 _cardsInHand.value?.add(card)
                 _cardsInHand.value = _cardsInHand.value
@@ -47,7 +47,7 @@ class RankUpViewModel : ViewModel() {
     }
 
     fun toNextPhase() {
-        _gamePhase.value = when(_gamePhase.value!!) {
+        _gamePhase.value = when (_gamePhase.value!!) {
             GamePhase.END -> GamePhase.DEAL
             GamePhase.DEAL -> GamePhase.PLAY
             GamePhase.PLAY -> GamePhase.END

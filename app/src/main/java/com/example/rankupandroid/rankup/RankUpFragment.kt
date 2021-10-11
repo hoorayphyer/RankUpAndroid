@@ -16,12 +16,13 @@ import com.example.rankupandroid.databinding.FragmentRankUpBinding
 
 class RankUpFragment : Fragment() {
     private lateinit var binding: FragmentRankUpBinding
-    private lateinit var motionLayout : MotionLayout
+    private lateinit var motionLayout: MotionLayout
     private val viewModel: RankUpViewModel by viewModels()
     private val sharedModel: SharedViewModelSelectedPlayers by activityViewModels()
 
-    private val dealingDirection = arrayOf(R.id.dealtToBottom, R.id.dealtToRight, R.id.dealtToTop, R.id.dealtToLeft)
-    private var dealingIter : Int = 0
+    private val dealingDirection =
+        arrayOf(R.id.dealtToBottom, R.id.dealtToRight, R.id.dealtToTop, R.id.dealtToLeft)
+    private var dealingIter: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -89,16 +90,16 @@ class RankUpFragment : Fragment() {
         (requireActivity() as AppCompatActivity).supportActionBar?.show()
     }
 
-    private fun setActionButton( gamePhase: GamePhase ) {
-        binding.rankupActionButton.apply{
-            when(gamePhase) {
+    private fun setActionButton(gamePhase: GamePhase) {
+        binding.rankupActionButton.apply {
+            when (gamePhase) {
                 GamePhase.END -> {
                     visibility = View.VISIBLE
                     text = getString(R.string.rankup_action_button_deal_str)
                     setOnClickListener {
                         // TODO neither of following two lines is working
                         viewModel.toNextPhase()
-                        visibility=View.INVISIBLE
+                        visibility = View.INVISIBLE
                         dealCards()
                     }
                 }
@@ -123,21 +124,21 @@ class RankUpFragment : Fragment() {
         dealingIter = viewModel.dealingBegin
         val playerInt = dealingIter % 4
         motionLayout.transitionToState(dealingDirection[playerInt], 500)
-        viewModel.dealCardTo(playerInt)
     }
 
-    private inner class CardDealingTransitionListener: MotionLayout.TransitionListener {
+    private inner class CardDealingTransitionListener : MotionLayout.TransitionListener {
         override fun onTransitionStarted(motionLayout: MotionLayout?, startId: Int, endId: Int) {
         }
 
         override fun onTransitionCompleted(motionLayout: MotionLayout?, currentId: Int) {
             // setProgress doesn't invoke transition listener
             motionLayout?.progress = 0.0f
+            // put this dealCardTo here so that the card is revealed after the card motion is done
+            viewModel.dealCardTo(dealingIter % 4)
             ++dealingIter
             if (dealingIter < viewModel.dealingEnd) {
                 val playerInt = dealingIter % 4
                 motionLayout?.transitionToState(dealingDirection[playerInt], 1000)
-                viewModel.dealCardTo(playerInt)
             }
         }
 
