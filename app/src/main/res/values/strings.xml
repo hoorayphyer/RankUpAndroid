@@ -11,5 +11,6 @@
     <string name="join_start_game_button_str">Join</string>
     <string name="player_list_item_is_friend">FRIEND</string>
     <string name="add_friend_button_vertical_str">add<br/>friend</string>
-    <string name="play_card_button_str">play</string>
+    <string name="rankup_action_button_play_str">play</string>
+    <string name="rankup_action_button_deal_str">deal</string>
 </resources>

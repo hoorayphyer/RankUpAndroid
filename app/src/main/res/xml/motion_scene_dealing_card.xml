@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MotionScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <ConstraintSet android:id="@+id/center" >
+    <ConstraintSet android:id="@+id/atCenter" >
         <Constraint
             android:id="@+id/cardToBeDealt"
             android:layout_width="wrap_content"
@@ -12,7 +12,7 @@
             app:layout_constraintBottom_toTopOf="@+id/cardsRecyclerView" />
     </ConstraintSet>
 
-    <ConstraintSet android:id="@+id/bottom" >
+    <ConstraintSet android:id="@+id/dealtToBottom" >
         <Constraint
             android:id="@+id/cardToBeDealt"
             android:layout_width="wrap_content"
@@ -22,13 +22,34 @@
             app:layout_constraintTop_toTopOf="@+id/cardsRecyclerView" />
     </ConstraintSet>
 
+    <ConstraintSet android:id="@+id/dealtToRight" >
+        <Constraint
+            android:id="@+id/cardToBeDealt"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/card_height"
+            app:layout_constraintRight_toRightOf="@+id/opponent1"
+            app:layout_constraintTop_toBottomOf="@+id/teammate"
+            app:layout_constraintBottom_toTopOf="@+id/cardsRecyclerView" />
+    </ConstraintSet>
 
-    <Transition
-        app:constraintSetStart="@+id/center"
-        app:constraintSetEnd="@+id/bottom"
-        app:duration="1000">
-        <OnClick
-            app:targetId="@id/cardToBeDealt"
-            app:clickAction="toggle" />
-    </Transition>
+    <ConstraintSet android:id="@+id/dealtToTop" >
+        <Constraint
+            android:id="@+id/cardToBeDealt"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/card_height"
+            app:layout_constraintEnd_toStartOf="@+id/opponent1"
+            app:layout_constraintStart_toEndOf="@+id/opponent2"
+            app:layout_constraintTop_toTopOf="@+id/teammate" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/dealtToLeft" >
+        <Constraint
+            android:id="@+id/cardToBeDealt"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/card_height"
+            app:layout_constraintLeft_toLeftOf="@+id/opponent2"
+            app:layout_constraintTop_toBottomOf="@+id/teammate"
+            app:layout_constraintBottom_toTopOf="@+id/cardsRecyclerView" />
+    </ConstraintSet>
+
 </MotionScreen>
