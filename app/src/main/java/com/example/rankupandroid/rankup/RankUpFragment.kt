@@ -98,7 +98,9 @@ class RankUpFragment : Fragment() {
                     visibility = View.VISIBLE
                     text = getString(R.string.rankup_action_button_deal_str)
                     setOnClickListener {
+                        // TODO neither of following two lines is working
                         viewModel.toNextPhase()
+                        visibility=View.INVISIBLE
                         dealCards()
                     }
                 }
@@ -120,10 +122,10 @@ class RankUpFragment : Fragment() {
 
     private fun dealCards() {
         dealingBegin = 0
-        dealingEnd = 8
+        dealingEnd = 12
         dealingIteration = dealingBegin
         val state = dealingDirection[dealingIteration % 4]
-        motionLayout.transitionToState(state, 1000)
+        motionLayout.transitionToState(state, 500)
     }
 
     private class CardDealingTransitionListener: MotionLayout.TransitionListener {
