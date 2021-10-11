@@ -23,6 +23,8 @@
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/card_height"
+            android:background="@drawable/card_border"
+            android:padding="1dp"
             app:cardImage="@{card}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
