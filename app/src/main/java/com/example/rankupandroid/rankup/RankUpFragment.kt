@@ -53,14 +53,17 @@ class RankUpFragment : Fragment() {
             })
         }
 
-        val itemClickListener = CardItemClickListener { view, _ ->
+        val itemClickListener = CardItemClickListener { view, card ->
             val params = view.layoutParams as ConstraintLayout.LayoutParams
-            if (params.topToTop == -1) {
+            val isUnselected = (params.topToTop == -1)
+            if (isUnselected) {
                 params.topToTop = (view.parent as View).id
                 params.bottomToBottom = -1
+                viewModel.selectCardInHand(card.value)
             } else {
                 params.topToTop = -1
                 params.bottomToBottom = (view.parent as View).id
+                viewModel.deselectCardInHand(card.value)
             }
 
             // see below for requestLayout(), which is necessary to make the view update
@@ -127,7 +130,9 @@ class RankUpFragment : Fragment() {
                     visibility = View.VISIBLE
                     text = getString(R.string.rankup_action_button_play_str)
                     setOnClickListener {
-                        // TODO implement this
+                        viewModel.playCards()
+                        // now force redraw
+                        binding.cardsRecyclerView.adapter!!.notifyDataSetChanged()
                     }
                 }
             }

@@ -24,6 +24,8 @@ class RankUpViewModel : ViewModel() {
 
     private var cardSequence = mutableListOf<Int>()
 
+    private var selectedCardInts = mutableSetOf<Int>()
+
     fun initializeDeck() {
         _cardsInHand.value = arrayListOf()
         handOpponent1.clear()
@@ -53,5 +55,24 @@ class RankUpViewModel : ViewModel() {
             GamePhase.DEAL -> GamePhase.PLAY
             GamePhase.PLAY -> GamePhase.END
         }
+    }
+
+    fun selectCardInHand(cardInt : Int) {
+        selectedCardInts.add(cardInt)
+    }
+
+    fun deselectCardInHand(cardInt : Int) {
+        selectedCardInts.remove(cardInt)
+    }
+
+    fun playCards() {
+        if (selectedCardInts.isNotEmpty()) {
+            _cardsInHand.value!!.removeIf{
+                it.value in selectedCardInts
+            }
+            _cardsInHand.value = _cardsInHand.value
+        }
+
+        selectedCardInts.clear()
     }
 }

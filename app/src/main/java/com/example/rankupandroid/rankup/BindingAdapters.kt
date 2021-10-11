@@ -30,7 +30,7 @@ private val CardImageArray = arrayOf(
 @BindingAdapter("cardImage")
 fun bindCardImage(imgView: ImageView, card: Card) {
     val cardImg = imgView.resources.getIdentifier(
-        CardImageArray[card.value], "drawable",
+        CardImageArray[card.value % CardImageArray.size], "drawable",
         imgView.context.packageName
     )
     imgView.setImageResource(cardImg)
