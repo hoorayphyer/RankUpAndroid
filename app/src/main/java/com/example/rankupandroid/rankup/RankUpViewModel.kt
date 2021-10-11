@@ -29,8 +29,9 @@ class RankUpViewModel : ViewModel() {
         handOpponent1.clear()
         handTeammate.clear()
         handOpponent2.clear()
-        // TODO permute
+
         cardSequence = (0..53).toMutableList()
+        cardSequence.shuffle()
     }
 
     fun dealCardTo(playerInt: Int) {
