@@ -57,22 +57,30 @@ class RankUpViewModel : ViewModel() {
         }
     }
 
-    fun selectCardInHand(cardInt : Int) {
+    fun selectCardInHand(cardInt: Int) {
         selectedCardInts.add(cardInt)
     }
 
-    fun deselectCardInHand(cardInt : Int) {
+    fun deselectCardInHand(cardInt: Int) {
         selectedCardInts.remove(cardInt)
     }
 
-    fun playCards() {
-        if (selectedCardInts.isNotEmpty()) {
-            _cardsInHand.value!!.removeIf{
-                it.value in selectedCardInts
+    fun playCards(): String? {
+        return when {
+            selectedCardInts.size == 1 -> {
+                _cardsInHand.value!!.removeIf {
+                    it.value in selectedCardInts
+                }
+                _cardsInHand.value = _cardsInHand.value
+                selectedCardInts.clear()
+                null
             }
-            _cardsInHand.value = _cardsInHand.value
+            selectedCardInts.isNotEmpty() -> {
+                "select only ONE card!"
+            }
+            else -> {
+                "no card selected!"
+            }
         }
-
-        selectedCardInts.clear()
     }
 }

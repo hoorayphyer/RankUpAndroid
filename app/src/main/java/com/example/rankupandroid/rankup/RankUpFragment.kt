@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -130,9 +131,13 @@ class RankUpFragment : Fragment() {
                     visibility = View.VISIBLE
                     text = getString(R.string.rankup_action_button_play_str)
                     setOnClickListener {
-                        viewModel.playCards()
-                        // now force redraw
-                        binding.cardsRecyclerView.adapter!!.notifyDataSetChanged()
+                        val errorMsg = viewModel.playCards()
+                        if (errorMsg == null) {
+                            // force redraw
+                            binding.cardsRecyclerView.adapter!!.notifyDataSetChanged()
+                        } else {
+                            Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show()
+                        }
                     }
                 }
             }
