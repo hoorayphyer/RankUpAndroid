@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.rankupandroid.R
@@ -23,6 +24,8 @@ class RankUpFragment : Fragment() {
     private val dealingDirection =
         arrayOf(R.id.dealtToBottom, R.id.dealtToRight, R.id.dealtToTop, R.id.dealtToLeft)
     private var dealingIter: Int = 0
+
+    private val dealingCardDurationInMilliseconds: Int = 500
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,7 +53,19 @@ class RankUpFragment : Fragment() {
             })
         }
 
-        val itemClickListener = CardItemClickListener {
+        val itemClickListener = CardItemClickListener { view, _ ->
+            val params = view.layoutParams as ConstraintLayout.LayoutParams
+            if (params.topToTop == -1) {
+                params.topToTop = (view.parent as View).id
+                params.bottomToBottom = -1
+            } else {
+                params.topToTop = -1
+                params.bottomToBottom = (view.parent as View).id
+            }
+
+            // see below for requestLayout(), which is necessary to make the view update
+            // https://stackoverflow.com/questions/13856180/usage-of-forcelayout-requestlayout-and-invalidate
+            view.requestLayout()
         }
 
         val cardsAdapter = CardsAdapter(itemClickListener)
@@ -97,7 +112,8 @@ class RankUpFragment : Fragment() {
                     visibility = View.VISIBLE
                     text = getString(R.string.rankup_action_button_deal_str)
                     setOnClickListener {
-                        // TODO neither of following two lines is working
+                        // TODO neither of following two lines is working to have the button
+                        //  disappear
                         viewModel.toNextPhase()
                         visibility = View.INVISIBLE
                         dealCards()
@@ -123,7 +139,10 @@ class RankUpFragment : Fragment() {
         viewModel.initializeDeck()
         dealingIter = viewModel.dealingBegin
         val playerInt = dealingIter % 4
-        motionLayout.transitionToState(dealingDirection[playerInt], 500)
+        motionLayout.transitionToState(
+            dealingDirection[playerInt],
+            dealingCardDurationInMilliseconds
+        )
     }
 
     private inner class CardDealingTransitionListener : MotionLayout.TransitionListener {
@@ -138,7 +157,12 @@ class RankUpFragment : Fragment() {
             ++dealingIter
             if (dealingIter < viewModel.dealingEnd) {
                 val playerInt = dealingIter % 4
-                motionLayout?.transitionToState(dealingDirection[playerInt], 1000)
+                motionLayout?.transitionToState(
+                    dealingDirection[playerInt],
+                    dealingCardDurationInMilliseconds
+                )
+            } else if (dealingIter == viewModel.dealingEnd) {
+                viewModel.toNextPhase()
             }
         }
 

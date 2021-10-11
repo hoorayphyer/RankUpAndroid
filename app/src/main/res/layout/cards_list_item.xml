@@ -15,9 +15,10 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/liftableCard"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="@{()->clickListener.onClick(card)}">
+        android:layout_height="@dimen/card_height_with_lifting"
+        android:onClick="@{()->clickListener.onClick(imageView, card)}">
 
         <ImageView
             android:id="@+id/imageView"
@@ -29,7 +30,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@drawable/cards_2_club" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -10,4 +10,5 @@
     <dimen name="host_game_player_view_margin">32dp</dimen>
     <dimen name="card_height">90dp</dimen>
     <dimen name="card_width">60dp</dimen>
+    <dimen name="card_height_with_lifting">120dp</dimen>
 </resources>

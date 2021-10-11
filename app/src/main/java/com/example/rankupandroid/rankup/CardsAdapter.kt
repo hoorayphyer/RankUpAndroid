@@ -1,6 +1,7 @@
 package com.example.rankupandroid.rankup
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -50,6 +51,6 @@ class CardsAdapter(private val clickListener: CardItemClickListener) :
     }
 }
 
-class CardItemClickListener(val callback: (card: Card) -> Unit) {
-    fun onClick(card: Card) = callback(card)
+class CardItemClickListener(val callback: (view: View, card: Card) -> Unit) {
+    fun onClick(view: View, card: Card) = callback(view, card)
 }
