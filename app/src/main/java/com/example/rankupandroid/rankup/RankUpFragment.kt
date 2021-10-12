@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
@@ -28,6 +29,8 @@ class RankUpFragment : Fragment() {
 
     private val dealingCardDurationInMilliseconds: Int = 500
 
+    private lateinit var playedCardImage: Array<ImageView>
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,6 +38,11 @@ class RankUpFragment : Fragment() {
         binding = FragmentRankUpBinding.inflate(layoutInflater, container, false)
 
         motionLayout = binding.root
+
+        playedCardImage = arrayOf(
+            binding.playedCardsMyself, binding
+                .playedCardsOpponent1, binding.playedCardsTeammate, binding.playedCardsOpponent2
+        )
 
         binding.apply {
             sharedModel.myself.observe(viewLifecycleOwner, {
@@ -131,13 +139,7 @@ class RankUpFragment : Fragment() {
                     visibility = View.VISIBLE
                     text = getString(R.string.rankup_action_button_play_str)
                     setOnClickListener {
-                        val errorMsg = viewModel.playCards()
-                        if (errorMsg == null) {
-                            // force redraw
-                            binding.cardsRecyclerView.adapter!!.notifyDataSetChanged()
-                        } else {
-                            Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show()
-                        }
+                        playCards()
                     }
                 }
             }
@@ -145,14 +147,60 @@ class RankUpFragment : Fragment() {
 
     }
 
+    private fun setPlayedCardImage(view: ImageView, cardInt: Int) {
+        view.apply {
+            setImageResource(
+                resources.getIdentifier(
+                    CardImages[cardInt],
+                    "drawable", context.packageName
+                )
+            )
+            setBackgroundResource(R.drawable.card_border)
+        }
+    }
+
+    private fun resetPlayedCardImage(view: ImageView) {
+        view.apply {
+            setImageResource(
+                resources.getIdentifier(
+                    "cards_blank",
+                    "drawable", context.packageName
+                )
+            )
+            setBackgroundResource(android.R.color.transparent)
+        }
+    }
+
     private fun dealCards() {
         viewModel.initializeDeck()
         dealingIter = viewModel.dealingBegin
         val playerInt = dealingIter % 4
+        // look at CardDealingTransitionListener.onTransitionCompleted for recursive calls
         motionLayout.transitionToState(
             dealingDirection[playerInt],
             dealingCardDurationInMilliseconds
         )
+    }
+
+    private fun playCards() {
+        val playerStart = 0
+        for (i in 0..3) {
+            resetPlayedCardImage(playedCardImage[i])
+        }
+        for (i in 0..3) {
+            val player = (playerStart + i) % 4
+            val (errorMsg, cardPlayed) = viewModel.playCards(player)
+            if (errorMsg == null) {
+                setPlayedCardImage(playedCardImage[player], cardPlayed)
+                if (player == 0) {
+                    // force redraw
+                    binding.cardsRecyclerView.adapter!!.notifyDataSetChanged()
+                }
+            } else {
+                Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show()
+            }
+            // TODO set delay between different players
+        }
     }
 
     private inner class CardDealingTransitionListener : MotionLayout.TransitionListener {

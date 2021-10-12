@@ -18,9 +18,8 @@ class RankUpViewModel : ViewModel() {
     val dealingBegin: Int = 0
     val dealingEnd: Int = 12
 
-    private val handOpponent1 = arrayListOf<Card>()
-    private val handTeammate = arrayListOf<Card>()
-    private val handOpponent2 = arrayListOf<Card>()
+    private val handOfOthers =
+        arrayOf(arrayListOf<Card>(), arrayListOf<Card>(), arrayListOf<Card>())
 
     private var cardSequence = mutableListOf<Int>()
 
@@ -28,9 +27,9 @@ class RankUpViewModel : ViewModel() {
 
     fun initializeDeck() {
         _cardsInHand.value = arrayListOf()
-        handOpponent1.clear()
-        handTeammate.clear()
-        handOpponent2.clear()
+        handOfOthers.forEach {
+            it.clear()
+        }
 
         cardSequence = (0..53).toMutableList()
         cardSequence.shuffle()
@@ -38,14 +37,12 @@ class RankUpViewModel : ViewModel() {
 
     fun dealCardTo(playerInt: Int) {
         val card = Card(cardSequence.removeFirst())
-        when (playerInt % 4) {
+        when (playerInt) {
             0 -> {
                 _cardsInHand.value?.add(card)
                 _cardsInHand.value = _cardsInHand.value
             }
-            1 -> handOpponent1.add(card)
-            2 -> handTeammate.add(card)
-            3 -> handOpponent2.add(card)
+            else -> handOfOthers[playerInt - 1].add(card)
         }
     }
 
@@ -65,22 +62,28 @@ class RankUpViewModel : ViewModel() {
         selectedCardInts.remove(cardInt)
     }
 
-    fun playCards(): String? {
-        return when {
-            selectedCardInts.size == 1 -> {
-                _cardsInHand.value!!.removeIf {
-                    it.value in selectedCardInts
+    fun playCards(playerInt: Int): Pair<String?, Int> {
+        if (playerInt == 0) {
+            return when {
+                selectedCardInts.size == 1 -> {
+                    _cardsInHand.value!!.removeIf {
+                        it.value in selectedCardInts
+                    }
+                    _cardsInHand.value = _cardsInHand.value
+                    val res = Pair(null, selectedCardInts.first())
+                    selectedCardInts.clear()
+                    res
                 }
-                _cardsInHand.value = _cardsInHand.value
-                selectedCardInts.clear()
-                null
+                selectedCardInts.isNotEmpty() -> {
+                    Pair("select only ONE card!", -1)
+                }
+                else -> {
+                    Pair("no card selected!", -1)
+                }
             }
-            selectedCardInts.isNotEmpty() -> {
-                "select only ONE card!"
-            }
-            else -> {
-                "no card selected!"
-            }
+        } else {
+            val card = handOfOthers[playerInt - 1].removeFirst()
+            return Pair(null, card.value)
         }
     }
 }
