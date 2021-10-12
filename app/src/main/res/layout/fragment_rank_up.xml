@@ -14,7 +14,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/playedCardsTeammate"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread_inside" />
 
@@ -25,9 +25,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/rankup_action_button"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent">
-
-    </com.example.rankupandroid.PlayerView>
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
         android:id="@+id/rankup_action_button"
@@ -54,7 +52,7 @@
     <com.example.rankupandroid.PlayerViewVertical
         android:id="@+id/opponent2"
         android:layout_width="wrap_content"
-        android:layout_height="270dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/cardsRecyclerView"
@@ -66,7 +64,7 @@
     <com.example.rankupandroid.PlayerViewVertical
         android:id="@+id/opponent1"
         android:layout_width="wrap_content"
-        android:layout_height="288dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,15 +77,44 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/card_height"
         android:src="@drawable/cards_reverse"
+        app:layout_constraintBottom_toTopOf="@+id/cardsRecyclerView"
         app:layout_constraintEnd_toStartOf="@+id/opponent1"
         app:layout_constraintStart_toEndOf="@+id/opponent2"
-        app:layout_constraintTop_toBottomOf="@+id/teammate"
-        app:layout_constraintBottom_toTopOf="@+id/cardsRecyclerView" />
+        app:layout_constraintTop_toBottomOf="@+id/teammate" />
 
     <ImageView
         android:id="@+id/cardToBeDealt"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/card_height"
         android:src="@drawable/cards_reverse" />
+
+    <ImageView
+        android:id="@+id/playedCardsOpponent1"
+        android:layout_width="@dimen/card_width"
+        android:layout_height="@dimen/card_height"
+        android:src="@drawable/cards_reverse"
+        app:layout_constraintEnd_toStartOf="@+id/opponent1"
+        app:layout_constraintTop_toTopOf="@+id/opponent1" />
+
+    <ImageView
+        android:id="@+id/playedCardsTeammate"
+        android:layout_width="@dimen/card_width"
+        android:layout_height="@dimen/card_height"
+        android:src="@drawable/cards_reverse"
+        app:layout_constraintBottom_toBottomOf="@+id/teammate"
+        app:layout_constraintEnd_toStartOf="@+id/teammate"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/teammate" />
+
+    <ImageView
+        android:id="@+id/playedCardsOpponent2"
+        android:layout_width="@dimen/card_width"
+        android:layout_height="@dimen/card_height"
+        android:src="@drawable/cards_reverse"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/opponent2"
+        app:layout_constraintTop_toTopOf="@+id/opponent2" />
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

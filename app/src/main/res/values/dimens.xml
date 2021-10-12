@@ -4,7 +4,7 @@
     <dimen name="player_image_height">80dp</dimen>
     <dimen name="players_recycler_view_margin">20dp</dimen>
     <dimen name="players_recycler_view_top_margin">60dp</dimen>
-    <dimen name="vertical_player_name_height">200dp</dimen>
+    <dimen name="vertical_player_name_height">80dp</dimen>
     <dimen name="player_name_width_in_recycler_view">200dp</dimen>
     <dimen name="player_name_width_in_player_view">160dp</dimen>
     <dimen name="host_game_player_view_margin">32dp</dimen>
