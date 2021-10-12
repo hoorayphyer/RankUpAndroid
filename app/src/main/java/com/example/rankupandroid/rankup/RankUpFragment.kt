@@ -10,9 +10,9 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
 import com.example.rankupandroid.R
 import com.example.rankupandroid.SharedViewModelSelectedPlayers
 import com.example.rankupandroid.databinding.FragmentRankUpBinding
@@ -63,16 +63,12 @@ class RankUpFragment : Fragment() {
         }
 
         val itemClickListener = CardItemClickListener { view, card ->
-            val params = view.layoutParams as ConstraintLayout.LayoutParams
-            val isUnselected = (params.topToTop == -1)
-            if (isUnselected) {
-                params.topToTop = (view.parent as View).id
-                params.bottomToBottom = -1
-                viewModel.selectCardInHand(card.value)
-            } else {
-                params.topToTop = -1
-                params.bottomToBottom = (view.parent as View).id
+            if (isSelectedMode(view)) {
+                setToUnselected(view)
                 viewModel.deselectCardInHand(card.value)
+            } else {
+                setToSelected(view)
+                viewModel.selectCardInHand(card.value)
             }
 
             // see below for requestLayout(), which is necessary to make the view update
@@ -177,8 +173,21 @@ class RankUpFragment : Fragment() {
         }
     }
 
+    private fun setAllViewHoldersToUnselected(recyclerView: RecyclerView) {
+        recyclerView.adapter?.apply{
+            for( i in 0 until itemCount ) {
+                (recyclerView.findViewHolderForAdapterPosition(i) as CardsAdapter.ViewHolder)
+                    .binding.imageView.let{
+                        setToUnselected(it)
+                        it.requestLayout()
+                    }
+            }
+        }
+    }
+
     private fun dealCards() {
         resetAllPlayedCardImage()
+        setAllViewHoldersToUnselected(binding.cardsRecyclerView)
         viewModel.initializeDeck()
         dealingIter = viewModel.dealingBegin
         val playerInt = dealingIter % 4
@@ -204,8 +213,11 @@ class RankUpFragment : Fragment() {
 
                 setPlayedCardImage(playedCardImage[player], cardPlayed)
                 if (player == 0) {
-                    // force redraw
-                    binding.cardsRecyclerView.adapter!!.notifyDataSetChanged()
+                    binding.cardsRecyclerView.apply {
+                        setAllViewHoldersToUnselected(this)
+                        // force redraw
+                        adapter?.notifyDataSetChanged()
+                    }
                 }
             } else {
                 Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show()
