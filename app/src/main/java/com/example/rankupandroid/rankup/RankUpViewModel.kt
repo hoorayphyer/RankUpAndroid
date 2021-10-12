@@ -18,6 +18,8 @@ class RankUpViewModel : ViewModel() {
     val dealingBegin: Int = 0
     val dealingEnd: Int = 12
 
+    private var round = 0
+
     private val handOfOthers =
         arrayOf(arrayListOf<Card>(), arrayListOf<Card>(), arrayListOf<Card>())
 
@@ -33,6 +35,16 @@ class RankUpViewModel : ViewModel() {
 
         cardSequence = (0..53).toMutableList()
         cardSequence.shuffle()
+
+        round = 0
+    }
+
+    fun advanceRound() {
+        ++round
+    }
+
+    fun isGameFinished(): Boolean {
+        return round == (dealingEnd - dealingBegin) / 4
     }
 
     fun dealCardTo(playerInt: Int) {

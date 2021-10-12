@@ -171,7 +171,14 @@ class RankUpFragment : Fragment() {
         }
     }
 
+    private fun resetAllPlayedCardImage() {
+        for (i in 0..3) {
+            resetPlayedCardImage(playedCardImage[i])
+        }
+    }
+
     private fun dealCards() {
+        resetAllPlayedCardImage()
         viewModel.initializeDeck()
         dealingIter = viewModel.dealingBegin
         val playerInt = dealingIter % 4
@@ -184,13 +191,17 @@ class RankUpFragment : Fragment() {
 
     private fun playCards() {
         val playerStart = 0
-        for (i in 0..3) {
-            resetPlayedCardImage(playedCardImage[i])
-        }
+        var clearedPlayedCards = false
         for (i in 0..3) {
             val player = (playerStart + i) % 4
             val (errorMsg, cardPlayed) = viewModel.playCards(player)
             if (errorMsg == null) {
+                // only clear played cards when new cards are to be played
+                if (!clearedPlayedCards) {
+                    resetAllPlayedCardImage()
+                    clearedPlayedCards = true
+                }
+
                 setPlayedCardImage(playedCardImage[player], cardPlayed)
                 if (player == 0) {
                     // force redraw
@@ -198,8 +209,20 @@ class RankUpFragment : Fragment() {
                 }
             } else {
                 Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show()
+                // this return exits the entire function when the first player plays something
+                // illegal. Note this only works for now when the first player is the user
+                return
             }
             // TODO set delay between different players
+        }
+
+        viewModel.advanceRound()
+        if (viewModel.isGameFinished()) {
+            Toast.makeText(
+                context, "Game finished! Click DEAL to start another one", Toast
+                    .LENGTH_LONG
+            ).show()
+            viewModel.toNextPhase()
         }
     }
 
@@ -211,7 +234,13 @@ class RankUpFragment : Fragment() {
             // setProgress doesn't invoke transition listener
             motionLayout?.progress = 0.0f
             // put this dealCardTo here so that the card is revealed after the card motion is done
-            viewModel.dealCardTo(dealingIter % 4)
+            if (dealingIter < viewModel.dealingEnd) {
+                // this apparently redundant 'if' branch is because of a weird bug that the
+                // transition motion seems to always gets executed one more time after the
+                // supposed end. Without this 'if', one player ends up with one more card
+                // than others
+                viewModel.dealCardTo(dealingIter % 4)
+            }
             ++dealingIter
             if (dealingIter < viewModel.dealingEnd) {
                 val playerInt = dealingIter % 4
