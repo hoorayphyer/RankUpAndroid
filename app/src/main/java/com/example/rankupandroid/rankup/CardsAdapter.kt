@@ -19,6 +19,10 @@ class CardsAdapter(private val clickListener: CardItemClickListener) :
             binding.apply {
                 card = item
                 this.clickListener = clickListener
+                // `bind` is called whenever a viewholder binds to a new card. So this is the
+                // perfect time to set the viewholder to unselected, as any new card should start
+                // out as unselected
+                setToUnselected(imageView, true)
                 executePendingBindings()
             }
         }
@@ -62,14 +66,23 @@ fun isSelectedMode(view: View): Boolean {
     return params.topToTop != -1
 }
 
-fun setToSelected(view: View) {
+// see below for requestLayout(), which is necessary to make the view update
+// https://stackoverflow.com/questions/13856180/usage-of-forcelayout-requestlayout-and-invalidate
+
+fun setToSelected(view: View, callRequestLayout: Boolean) {
     val params = view.layoutParams as ConstraintLayout.LayoutParams
     params.topToTop = (view.parent as View).id
     params.bottomToBottom = -1
+    if (callRequestLayout) {
+        view.requestLayout()
+    }
 }
 
-fun setToUnselected(view: View) {
+fun setToUnselected(view: View, callRequestLayout: Boolean) {
     val params = view.layoutParams as ConstraintLayout.LayoutParams
     params.topToTop = -1
     params.bottomToBottom = (view.parent as View).id
+    if (callRequestLayout) {
+        view.requestLayout()
+    }
 }

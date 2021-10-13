@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.RecyclerView
 import com.example.rankupandroid.R
 import com.example.rankupandroid.SharedViewModelSelectedPlayers
 import com.example.rankupandroid.databinding.FragmentRankUpBinding
@@ -64,16 +63,12 @@ class RankUpFragment : Fragment() {
 
         val itemClickListener = CardItemClickListener { view, card ->
             if (isSelectedMode(view)) {
-                setToUnselected(view)
+                setToUnselected(view, true)
                 viewModel.deselectCardInHand(card.value)
             } else {
-                setToSelected(view)
+                setToSelected(view, true)
                 viewModel.selectCardInHand(card.value)
             }
-
-            // see below for requestLayout(), which is necessary to make the view update
-            // https://stackoverflow.com/questions/13856180/usage-of-forcelayout-requestlayout-and-invalidate
-            view.requestLayout()
         }
 
         val cardsAdapter = CardsAdapter(itemClickListener)
@@ -173,21 +168,8 @@ class RankUpFragment : Fragment() {
         }
     }
 
-    private fun setAllViewHoldersToUnselected(recyclerView: RecyclerView) {
-        recyclerView.adapter?.apply{
-            for( i in 0 until itemCount ) {
-                (recyclerView.findViewHolderForAdapterPosition(i) as CardsAdapter.ViewHolder)
-                    .binding.imageView.let{
-                        setToUnselected(it)
-                        it.requestLayout()
-                    }
-            }
-        }
-    }
-
     private fun dealCards() {
         resetAllPlayedCardImage()
-        setAllViewHoldersToUnselected(binding.cardsRecyclerView)
         viewModel.initializeDeck()
         dealingIter = viewModel.dealingBegin
         val playerInt = dealingIter % 4
@@ -214,7 +196,7 @@ class RankUpFragment : Fragment() {
                 setPlayedCardImage(playedCardImage[player], cardPlayed)
                 if (player == 0) {
                     binding.cardsRecyclerView.apply {
-                        setAllViewHoldersToUnselected(this)
+//                        setViewHolderToUnselected(this, cardPlayed)
                         // force redraw
                         adapter?.notifyDataSetChanged()
                     }
