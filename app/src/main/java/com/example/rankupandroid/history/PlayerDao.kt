@@ -1,4 +1,4 @@
-package com.example.rankupandroid.localdatabase
+package com.example.rankupandroid.history
 
 // TODO I don't want to save player into database
 

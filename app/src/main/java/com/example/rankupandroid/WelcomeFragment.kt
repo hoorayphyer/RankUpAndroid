@@ -22,8 +22,8 @@ class WelcomeFragment : Fragment() {
         binding.hostGameButton.setOnClickListener {
             findNavController().navigate(R.id.action_welcomeFragment_to_hostGameFragment)
         }
-        binding.joinGameButton.setOnClickListener {
-            findNavController().navigate(R.id.action_welcomeFragment_to_joinGameFragment)
+        binding.viewHistoryButton.setOnClickListener {
+            findNavController().navigate(R.id.action_welcomeFragment_to_viewHistoryFragment)
         }
 
         return binding.root

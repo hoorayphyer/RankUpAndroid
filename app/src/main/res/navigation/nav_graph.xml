@@ -14,8 +14,8 @@
             android:id="@+id/action_welcomeFragment_to_hostGameFragment"
             app:destination="@id/hostGameFragment" />
         <action
-            android:id="@+id/action_welcomeFragment_to_joinGameFragment"
-            app:destination="@id/joinGameFragment" />
+            android:id="@+id/action_welcomeFragment_to_viewHistoryFragment"
+            app:destination="@id/viewHistoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/hostGameFragment"
@@ -33,20 +33,7 @@
         android:id="@+id/rankUpFragment"
         android:name="com.example.rankupandroid.rankup.RankUpFragment"
         android:label="fragment_rank_up"
-        tools:layout="@layout/fragment_rank_up" >
-        <action
-            android:id="@+id/action_rankUpFragment_to_playersListFragment"
-            app:destination="@id/playersListFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/joinGameFragment"
-        android:name="com.example.rankupandroid.JoinGameFragment"
-        android:label="fragment_join_game"
-        tools:layout="@layout/fragment_join_game" >
-        <action
-            android:id="@+id/action_joinGameFragment_to_rankUpFragment"
-            app:destination="@id/rankUpFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_rank_up" />
     <fragment
         android:id="@+id/playersListFragment"
         android:name="com.example.rankupandroid.playerslist.PlayersListFragment"
@@ -56,4 +43,8 @@
             android:name="from"
             app:argType="com.example.rankupandroid.playerslist.ToPlayersListFrom" />
     </fragment>
+    <fragment
+        android:id="@+id/viewHistoryFragment"
+        android:name="com.example.rankupandroid.history.ViewHistoryFragment"
+        android:label="ViewHistoryFragment" />
 </navigation>

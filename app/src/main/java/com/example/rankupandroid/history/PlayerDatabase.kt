@@ -1,4 +1,4 @@
-package com.example.rankupandroid.localdatabase
+package com.example.rankupandroid.history
 
 //import android.content.Context
 //import androidx.room.Database
