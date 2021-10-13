@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RankUpAndroid</string>
+    <string name="app_name">RankUp</string>
     <string name="host_game_button_str">Host A Game</string>
     <string name="view_history_button_str">View History</string>
     <string name="rankup_title_str">Welcome to RankUP</string>
