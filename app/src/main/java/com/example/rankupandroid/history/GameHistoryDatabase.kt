@@ -1,6 +1,7 @@
 package com.example.rankupandroid.history
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.room.*
 
 class GameHistoryConverters {
@@ -19,11 +20,19 @@ class GameHistoryConverters {
     }
 }
 
+@Dao
+interface GameHistoryDatabaseDao {
+    @Query("SELECT * FROM game_history_table")
+    fun getAllGameHistories(): LiveData<List<GameHistory>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun updateDatabase(histories: List<GameHistory>)
+}
 
 @Database(entities = [GameHistory::class], version = 1, exportSchema = false)
 @TypeConverters(GameHistoryConverters::class)
 abstract class GameHistoryDatabase : RoomDatabase() {
-    abstract val dao: GameHistoryDao
+    abstract val dao: GameHistoryDatabaseDao
 
     companion object {
         // a singleton instance of the database
