@@ -10,5 +10,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class GameHistory(
     @PrimaryKey val id: Long,
-    @ColumnInfo(name = "rounds") val rounds: MutableList<Int>,
+    @ColumnInfo(name = "rounds") val rounds: MutableList<Int>, // Int for card integers
 ) : Parcelable

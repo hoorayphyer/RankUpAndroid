@@ -1,11 +1,27 @@
 package com.example.rankupandroid.history
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
+
+class GameHistoryConverters {
+    private val separator: String = "-"
+
+    @TypeConverter
+    fun roundsFromString(rounds: MutableList<Int>?): String? {
+        return rounds?.joinToString(separator)
+    }
+
+    @TypeConverter
+    fun roundsToString(str: String?): MutableList<Int>? {
+        return str?.run {
+            split(separator).map { it.toInt() }.toMutableList()
+        }
+    }
+}
+
 
 @Database(entities = [GameHistory::class], version = 1, exportSchema = false)
+@TypeConverters(GameHistoryConverters::class)
 abstract class GameHistoryDatabase : RoomDatabase() {
     abstract val dao: GameHistoryDao
 
