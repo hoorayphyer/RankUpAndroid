@@ -27,6 +27,9 @@ interface GameHistoryDatabaseDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun updateDatabase(histories: List<GameHistory>)
+
+    @Query("DELETE FROM game_history_table WHERE game_time < :date")
+    fun deletePriorTo(date: String)
 }
 
 @Database(entities = [GameHistory::class], version = 1, exportSchema = false)
