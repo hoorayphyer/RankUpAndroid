@@ -5,13 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import com.example.rankupandroid.databinding.FragmentViewHistoryBinding
 
 class ViewHistoryFragment : Fragment() {
     private lateinit var binding: FragmentViewHistoryBinding
 
-    private val viewModel: ViewHistoryViewModel by viewModels {
+    private val viewModel: ViewHistoryViewModel by activityViewModels {
         val dao = GameHistoryDatabase.getInstance(requireActivity().application).dao
         val repo = GameHistoryDataRepository(dao)
         ViewHistoryViewModelFactory(repo)
@@ -24,10 +24,16 @@ class ViewHistoryFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentViewHistoryBinding.inflate(layoutInflater, container, false)
 
+
+        val itemClickListener = GameHistoryItemClickListener { }
+
+        val historiesAdapter = GameHistoryListAdapter(itemClickListener)
+
         viewModel.repo.gameHistories.observe(viewLifecycleOwner, {
-            // TODO put recyclerView.submitList(it)
+            historiesAdapter.submitList(it)
         })
 
+        binding.historyRecyclerView.adapter = historiesAdapter
         return binding.root
     }
 }

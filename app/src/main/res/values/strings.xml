@@ -12,4 +12,7 @@
     <string name="add_friend_button_vertical_str">add<br/>friend</string>
     <string name="rankup_action_button_play_str">play</string>
     <string name="rankup_action_button_deal_str">deal</string>
+    <string name="game_history_list_view_button_str">delete all histories</string>
+    <string name="game_history_list_view_game_time_header">Game @</string>
+    <string name="game_history_list_view_round_header">Round</string>
 </resources>

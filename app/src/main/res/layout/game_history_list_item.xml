@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="history"
+            type="com.example.rankupandroid.history.GameHistory" />
+
+        <variable
+            name="clickListener"
+            type="com.example.rankupandroid.history.GameHistoryItemClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:onClick="@{()->clickListener.onClick(history)}">
+
+        <TextView
+            android:id="@+id/gameTimeText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:game_time_text="@{history}"
+            app:layout_constraintBottom_toTopOf="@+id/round1Text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/round1Text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="8dp"
+            app:round_text="@{1}"
+            app:layout_constraintBottom_toTopOf="@+id/round1Cards1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gameTimeText" />
+
+        <ImageView
+            android:id="@+id/round1Cards1"
+            android:layout_width="@dimen/card_width"
+            android:layout_height="@dimen/card_height"
+            app:round_i="@{1}"
+            app:rounds_player="@{history.roundsMyself}"
+            app:layout_constraintBottom_toTopOf="@+id/round2Text"
+            app:layout_constraintEnd_toStartOf="@+id/round1Cards2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/round1Text"
+            app:layout_constraintTop_toBottomOf="@+id/round1Text"
+            app:srcCompat="@drawable/cards_reverse" />
+
+        <ImageView
+            android:id="@+id/round1Cards2"
+            android:layout_width="@dimen/card_width"
+            android:layout_height="@dimen/card_height"
+            app:round_i="@{1}"
+            app:rounds_player="@{history.roundsOpponent1}"
+            app:layout_constraintBottom_toBottomOf="@+id/round1Cards1"
+            app:layout_constraintEnd_toStartOf="@+id/round1Cards3"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/round1Cards1"
+            app:layout_constraintTop_toTopOf="@+id/round1Cards1"
+            app:srcCompat="@drawable/cards_reverse" />
+
+
+        <ImageView
+            android:id="@+id/round1Cards3"
+            android:layout_width="@dimen/card_width"
+            android:layout_height="@dimen/card_height"
+            app:round_i="@{1}"
+            app:rounds_player="@{history.roundsTeammate}"
+            app:layout_constraintBottom_toBottomOf="@+id/round1Cards1"
+            app:layout_constraintEnd_toStartOf="@+id/round1Cards4"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/round1Cards2"
+            app:layout_constraintTop_toTopOf="@+id/round1Cards1"
+            app:srcCompat="@drawable/cards_reverse" />
+
+        <ImageView
+            android:id="@+id/round1Cards4"
+            android:layout_width="@dimen/card_width"
+            android:layout_height="@dimen/card_height"
+            app:round_i="@{1}"
+            app:rounds_player="@{history.roundsOpponent2}"
+            app:layout_constraintBottom_toBottomOf="@+id/round1Cards1"
+            app:layout_constraintEnd_toEndOf="@+id/round1Text"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/round1Cards3"
+            app:layout_constraintTop_toTopOf="@+id/round1Cards1"
+            app:srcCompat="@drawable/cards_reverse" />
+
+        <TextView
+            android:id="@+id/round2Text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:round_text="@{2}"
+            app:layout_constraintBottom_toTopOf="@+id/round2Cards1"
+            app:layout_constraintEnd_toEndOf="@+id/round1Text"
+            app:layout_constraintStart_toStartOf="@+id/round1Text"
+            app:layout_constraintTop_toBottomOf="@+id/round1Cards1" />
+
+        <ImageView
+            android:id="@+id/round2Cards1"
+            android:layout_width="@dimen/card_width"
+            android:layout_height="@dimen/card_height"
+            app:round_i="@{2}"
+            app:rounds_player="@{history.roundsMyself}"
+            app:layout_constraintBottom_toTopOf="@+id/round3Text"
+            app:layout_constraintEnd_toStartOf="@+id/round2Cards2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/round2Text"
+            app:layout_constraintTop_toBottomOf="@+id/round2Text"
+            app:srcCompat="@drawable/cards_reverse" />
+
+        <ImageView
+            android:id="@+id/round2Cards2"
+            android:layout_width="@dimen/card_width"
+            android:layout_height="@dimen/card_height"
+            app:round_i="@{2}"
+            app:rounds_player="@{history.roundsOpponent1}"
+            app:layout_constraintBottom_toBottomOf="@+id/round2Cards1"
+            app:layout_constraintEnd_toStartOf="@+id/round2Cards3"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/round2Cards1"
+            app:layout_constraintTop_toTopOf="@+id/round2Cards1"
+            app:srcCompat="@drawable/cards_reverse" />
+
+        <ImageView
+            android:id="@+id/round2Cards3"
+            android:layout_width="@dimen/card_width"
+            android:layout_height="@dimen/card_height"
+            app:round_i="@{2}"
+            app:rounds_player="@{history.roundsTeammate}"
+            app:layout_constraintBottom_toBottomOf="@+id/round2Cards1"
+            app:layout_constraintEnd_toStartOf="@+id/round2Cards4"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/round2Cards2"
+            app:layout_constraintTop_toTopOf="@+id/round2Cards1"
+            app:srcCompat="@drawable/cards_reverse" />
+
+        <ImageView
+            android:id="@+id/round2Cards4"
+            android:layout_width="@dimen/card_width"
+            android:layout_height="@dimen/card_height"
+            app:round_i="@{2}"
+            app:rounds_player="@{history.roundsOpponent2}"
+            app:layout_constraintBottom_toBottomOf="@+id/round2Cards1"
+            app:layout_constraintEnd_toEndOf="@+id/round2Text"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/round2Cards3"
+            app:layout_constraintTop_toTopOf="@+id/round2Cards1"
+            app:srcCompat="@drawable/cards_reverse" />
+
+        <TextView
+            android:id="@+id/round3Text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:round_text="@{3}"
+            app:layout_constraintBottom_toTopOf="@+id/round3Cards1"
+            app:layout_constraintEnd_toEndOf="@+id/round1Text"
+            app:layout_constraintStart_toStartOf="@+id/round1Text"
+            app:layout_constraintTop_toBottomOf="@+id/round2Cards1" />
+
+        <ImageView
+            android:id="@+id/round3Cards1"
+            android:layout_width="@dimen/card_width"
+            android:layout_height="@dimen/card_height"
+            android:layout_marginBottom="16dp"
+            app:round_i="@{3}"
+            app:rounds_player="@{history.roundsMyself}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/round3Cards2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/round3Text"
+            app:layout_constraintTop_toBottomOf="@+id/round3Text"
+            app:srcCompat="@drawable/cards_reverse" />
+
+        <ImageView
+            android:id="@+id/round3Cards2"
+            android:layout_width="@dimen/card_width"
+            android:layout_height="@dimen/card_height"
+            app:round_i="@{3}"
+            app:rounds_player="@{history.roundsOpponent1}"
+            app:layout_constraintBottom_toBottomOf="@+id/round3Cards1"
+            app:layout_constraintEnd_toStartOf="@+id/round3Cards3"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/round3Cards1"
+            app:layout_constraintTop_toTopOf="@+id/round3Cards1"
+            app:srcCompat="@drawable/cards_reverse" />
+
+        <ImageView
+            android:id="@+id/round3Cards3"
+            android:layout_width="@dimen/card_width"
+            android:layout_height="@dimen/card_height"
+            app:round_i="@{3}"
+            app:rounds_player="@{history.roundsTeammate}"
+            app:layout_constraintBottom_toBottomOf="@+id/round3Cards1"
+            app:layout_constraintEnd_toStartOf="@+id/round3Cards4"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/round3Cards2"
+            app:layout_constraintTop_toTopOf="@+id/round3Cards1"
+            app:srcCompat="@drawable/cards_reverse" />
+
+        <ImageView
+            android:id="@+id/round3Cards4"
+            android:layout_width="@dimen/card_width"
+            android:layout_height="@dimen/card_height"
+            app:round_i="@{3}"
+            app:rounds_player="@{history.roundsOpponent2}"
+            app:layout_constraintBottom_toBottomOf="@+id/round3Cards1"
+            app:layout_constraintEnd_toEndOf="@+id/round3Text"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/round3Cards3"
+            app:layout_constraintTop_toTopOf="@+id/round3Cards1"
+            app:srcCompat="@drawable/cards_reverse" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

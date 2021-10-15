@@ -1,5 +1,8 @@
 package com.example.rankupandroid.rankup
 
+import android.widget.ImageView
+import com.example.rankupandroid.R
+
 // card images are from
 // https://commons.wikimedia.org/wiki/Category:SVG_playing_cards_1
 // Android has the following restrictions
@@ -35,3 +38,26 @@ internal object CardImages {
     }
 }
 
+fun setCardImage(view: ImageView, cardInt: Int) {
+    view.apply {
+        setImageResource(
+            resources.getIdentifier(
+                CardImages[cardInt],
+                "drawable", context.packageName
+            )
+        )
+        setBackgroundResource(R.drawable.card_border)
+    }
+}
+
+fun resetCardImage(view: ImageView) {
+    view.apply {
+        setImageResource(
+            resources.getIdentifier(
+                "cards_blank",
+                "drawable", context.packageName
+            )
+        )
+        setBackgroundResource(android.R.color.transparent)
+    }
+}

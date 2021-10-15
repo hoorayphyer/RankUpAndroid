@@ -138,33 +138,9 @@ class RankUpFragment : Fragment() {
 
     }
 
-    private fun setPlayedCardImage(view: ImageView, cardInt: Int) {
-        view.apply {
-            setImageResource(
-                resources.getIdentifier(
-                    CardImages[cardInt],
-                    "drawable", context.packageName
-                )
-            )
-            setBackgroundResource(R.drawable.card_border)
-        }
-    }
-
-    private fun resetPlayedCardImage(view: ImageView) {
-        view.apply {
-            setImageResource(
-                resources.getIdentifier(
-                    "cards_blank",
-                    "drawable", context.packageName
-                )
-            )
-            setBackgroundResource(android.R.color.transparent)
-        }
-    }
-
     private fun resetAllPlayedCardImage() {
         for (i in 0..3) {
-            resetPlayedCardImage(playedCardImage[i])
+            resetCardImage(playedCardImage[i])
         }
     }
 
@@ -193,7 +169,7 @@ class RankUpFragment : Fragment() {
                     clearedPlayedCards = true
                 }
 
-                setPlayedCardImage(playedCardImage[player], cardPlayed)
+                setCardImage(playedCardImage[player], cardPlayed)
                 if (player == 0) {
                     binding.cardsRecyclerView.apply {
 //                        setViewHolderToUnselected(this, cardPlayed)

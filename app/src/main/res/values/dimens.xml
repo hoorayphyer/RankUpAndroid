@@ -11,4 +11,6 @@
     <dimen name="card_height">90dp</dimen>
     <dimen name="card_width">60dp</dimen>
     <dimen name="card_height_with_lifting">120dp</dimen>
+    <dimen name="game_history_list_view_margin">20dp</dimen>
+    <dimen name="game_history_list_view_top_margin">60dp</dimen>
 </resources>
