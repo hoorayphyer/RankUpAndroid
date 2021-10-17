@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/cards1"
+        android:layout_width="@dimen/card_width"
+        android:layout_height="@dimen/card_height"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cards2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/cards_reverse" />
+
+    <ImageView
+        android:id="@+id/cards2"
+        android:layout_width="@dimen/card_width"
+        android:layout_height="@dimen/card_height"
+        app:layout_constraintBottom_toBottomOf="@+id/cards1"
+        app:layout_constraintEnd_toStartOf="@+id/cards3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cards1"
+        app:layout_constraintTop_toTopOf="@+id/cards1"
+        app:srcCompat="@drawable/cards_reverse" />
+
+
+    <ImageView
+        android:id="@+id/cards3"
+        android:layout_width="@dimen/card_width"
+        android:layout_height="@dimen/card_height"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cards4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cards2"
+        app:layout_constraintTop_toTopOf="@+id/cards1"
+        app:srcCompat="@drawable/cards_reverse" />
+
+    <ImageView
+        android:id="@+id/cards4"
+        android:layout_width="@dimen/card_width"
+        android:layout_height="@dimen/card_height"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cards3"
+        app:layout_constraintTop_toTopOf="@+id/cards1"
+        app:srcCompat="@drawable/cards_reverse" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

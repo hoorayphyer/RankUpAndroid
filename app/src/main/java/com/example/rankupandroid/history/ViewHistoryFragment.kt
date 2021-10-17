@@ -24,12 +24,10 @@ class ViewHistoryFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentViewHistoryBinding.inflate(layoutInflater, container, false)
 
-        val itemClickListener = GameHistoryItemClickListener { }
-
-        val historiesAdapter = GameHistoryListAdapter(itemClickListener)
+        val historiesAdapter = GameHistoryListAdapter()
 
         viewModel.gameHistories.observe(viewLifecycleOwner, {
-            historiesAdapter.submitList(it)
+            historiesAdapter.addHeaderAndSubmitList(it)
         })
 
         binding.historyRecyclerView.adapter = historiesAdapter
