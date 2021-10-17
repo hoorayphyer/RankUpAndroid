@@ -24,16 +24,24 @@ class ViewHistoryFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentViewHistoryBinding.inflate(layoutInflater, container, false)
 
-
         val itemClickListener = GameHistoryItemClickListener { }
 
         val historiesAdapter = GameHistoryListAdapter(itemClickListener)
 
-        viewModel.repo.gameHistories.observe(viewLifecycleOwner, {
+        viewModel.gameHistories.observe(viewLifecycleOwner, {
             historiesAdapter.submitList(it)
         })
 
         binding.historyRecyclerView.adapter = historiesAdapter
+
+        binding.actionButtonGameHistory.setOnClickListener {
+            viewModel.deleteHistories()
+        }
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadHistories()
     }
 }

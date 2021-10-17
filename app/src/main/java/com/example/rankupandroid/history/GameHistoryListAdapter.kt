@@ -14,9 +14,8 @@ class GameHistoryListAdapter(private val clickListener: GameHistoryItemClickList
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: GameHistory, clickListener: GameHistoryItemClickListener) {
-            // this binding is a must regardless of participating
-            binding.history = item
             binding.apply {
+                history = item
                 this.clickListener = clickListener
                 executePendingBindings()
             }

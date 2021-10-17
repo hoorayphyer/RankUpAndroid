@@ -15,12 +15,21 @@ import androidx.fragment.app.viewModels
 import com.example.rankupandroid.R
 import com.example.rankupandroid.SharedViewModelSelectedPlayers
 import com.example.rankupandroid.databinding.FragmentRankUpBinding
+import com.example.rankupandroid.history.GameHistoryDataRepository
+import com.example.rankupandroid.history.GameHistoryDatabase
+import com.example.rankupandroid.history.ViewHistoryViewModel
+import com.example.rankupandroid.history.ViewHistoryViewModelFactory
 
 class RankUpFragment : Fragment() {
     private lateinit var binding: FragmentRankUpBinding
     private lateinit var motionLayout: MotionLayout
     private val viewModel: RankUpViewModel by viewModels()
     private val sharedModel: SharedViewModelSelectedPlayers by activityViewModels()
+    private val historyViewModel: ViewHistoryViewModel by activityViewModels {
+        val dao = GameHistoryDatabase.getInstance(requireActivity().application).dao
+        val repo = GameHistoryDataRepository(dao)
+        ViewHistoryViewModelFactory(repo)
+    }
 
     private val dealingDirection =
         arrayOf(R.id.dealtToBottom, R.id.dealtToRight, R.id.dealtToTop, R.id.dealtToLeft)
@@ -192,6 +201,7 @@ class RankUpFragment : Fragment() {
                 context, "Game finished! Click DEAL to start another one", Toast
                     .LENGTH_LONG
             ).show()
+            historyViewModel.saveHistory(viewModel.thisGameHistory())
             viewModel.toNextPhase()
         }
     }

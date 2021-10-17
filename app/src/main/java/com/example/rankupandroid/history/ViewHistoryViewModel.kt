@@ -1,9 +1,31 @@
 package com.example.rankupandroid.history
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
+import kotlinx.coroutines.launch
 
-class ViewHistoryViewModel(val repo: GameHistoryDataRepository) : ViewModel() {
+class ViewHistoryViewModel(private val repo: GameHistoryDataRepository) : ViewModel() {
+    private var _gameHistories: MutableLiveData<List<GameHistory>> =
+        MutableLiveData<List<GameHistory>>()
+    val gameHistories: LiveData<List<GameHistory>> = _gameHistories
+
+    fun saveHistory(history: GameHistory) {
+        viewModelScope.launch {
+            repo.saveHistory(history)
+        }
+    }
+
+    fun loadHistories() {
+        viewModelScope.launch {
+            _gameHistories.value = repo.readHistories()
+        }
+    }
+
+    fun deleteHistories() {
+        viewModelScope.launch {
+            repo.deleteHistories()
+        }
+        _gameHistories.value = listOf()
+    }
 }
 
 class ViewHistoryViewModelFactory(private val repo: GameHistoryDataRepository) :

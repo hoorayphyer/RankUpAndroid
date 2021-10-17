@@ -3,6 +3,10 @@ package com.example.rankupandroid.rankup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.rankupandroid.history.GameHistory
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import kotlin.collections.ArrayList
 
 enum class GamePhase {
     END, DEAL, PLAY
@@ -27,6 +31,8 @@ class RankUpViewModel : ViewModel() {
 
     private var selectedCardInts = mutableSetOf<Int>()
 
+    private var history = GameHistory()
+
     fun initializeDeck() {
         _cardsInHand.value = arrayListOf()
         handOfOthers.forEach {
@@ -37,6 +43,10 @@ class RankUpViewModel : ViewModel() {
         cardSequence.shuffle()
 
         round = 0
+
+        val currentTime = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        history = GameHistory(startTime = currentTime.format(formatter))
     }
 
     fun advanceRound() {
@@ -82,7 +92,9 @@ class RankUpViewModel : ViewModel() {
                         it.value in selectedCardInts
                     }
                     _cardsInHand.value = _cardsInHand.value
-                    val res = Pair(null, selectedCardInts.first())
+                    val card = selectedCardInts.first()
+                    val res = Pair(null, card)
+                    history.rounds(playerInt).add(card)
                     selectedCardInts.clear()
                     res
                 }
@@ -95,7 +107,13 @@ class RankUpViewModel : ViewModel() {
             }
         } else {
             val card = handOfOthers[playerInt - 1].removeFirst()
+            history.rounds(playerInt).add(card.value)
             return Pair(null, card.value)
         }
+    }
+
+    fun thisGameHistory(): GameHistory {
+        require(isGameFinished())
+        return history
     }
 }
