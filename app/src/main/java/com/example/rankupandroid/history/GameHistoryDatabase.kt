@@ -21,7 +21,7 @@ class GameHistoryConverters {
 
 @Dao
 interface GameHistoryDatabaseDao {
-    @Query("SELECT * FROM game_history_table")
+    @Query("SELECT * FROM game_history_table ORDER BY id DESC")
     suspend fun getAllGameHistories(): List<GameHistory>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
