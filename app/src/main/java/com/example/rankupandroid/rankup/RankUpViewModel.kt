@@ -3,7 +3,12 @@ package com.example.rankupandroid.rankup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.rankupandroid.history.GameHistory
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.collections.ArrayList
@@ -22,8 +27,6 @@ class RankUpViewModel : ViewModel() {
     val dealingBegin: Int = 0
     val dealingEnd: Int = 12
 
-    private var round = 0
-
     private val handOfOthers =
         arrayOf(arrayListOf<Card>(), arrayListOf<Card>(), arrayListOf<Card>())
 
@@ -31,9 +34,20 @@ class RankUpViewModel : ViewModel() {
 
     private var selectedCardInts = mutableSetOf<Int>()
 
-    private var history = GameHistory()
+    private var _history = GameHistory()
+    val history get() = _history
+
+    private var _whoseTurn = 0
+    val whoseTurn get() = _whoseTurn
+
+    private var _isGameFinished = MutableLiveData<Boolean>()
+    val isGameFinished: LiveData<Boolean> = _isGameFinished
+
+    private var _clearPlayedCards = MutableLiveData<Boolean>()
+    val clearPlayedCards: LiveData<Boolean> = _clearPlayedCards
 
     fun initializeDeck() {
+        _gamePhase.value = GamePhase.DEAL
         _cardsInHand.value = arrayListOf()
         handOfOthers.forEach {
             it.clear()
@@ -42,19 +56,13 @@ class RankUpViewModel : ViewModel() {
         cardSequence = (0..53).toMutableList()
         cardSequence.shuffle()
 
-        round = 0
-
         val currentTime = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-        history = GameHistory(startTime = currentTime.format(formatter))
+        _history = GameHistory(startTime = currentTime.format(formatter))
     }
 
-    fun advanceRound() {
-        ++round
-    }
-
-    fun isGameFinished(): Boolean {
-        return round == (dealingEnd - dealingBegin) / 4
+    private fun roundEnd(): Int {
+        return (dealingEnd - dealingBegin) / 4
     }
 
     fun dealCardTo(playerInt: Int) {
@@ -68,12 +76,9 @@ class RankUpViewModel : ViewModel() {
         }
     }
 
-    fun toNextPhase() {
-        _gamePhase.value = when (_gamePhase.value!!) {
-            GamePhase.END -> GamePhase.DEAL
-            GamePhase.DEAL -> GamePhase.PLAY
-            GamePhase.PLAY -> GamePhase.END
-        }
+    fun startPlayPhase() {
+        _gamePhase.value = GamePhase.PLAY
+        runMainLoop()
     }
 
     fun selectCardInHand(cardInt: Int) {
@@ -84,36 +89,59 @@ class RankUpViewModel : ViewModel() {
         selectedCardInts.remove(cardInt)
     }
 
-    fun playCards(playerInt: Int): Pair<String?, Int> {
-        if (playerInt == 0) {
-            return when {
-                selectedCardInts.size == 1 -> {
-                    _cardsInHand.value!!.removeIf {
-                        it.value in selectedCardInts
+    private val _cardsToPlay = listOf(
+        MutableLiveData<Int>(), MutableLiveData<Int>(),
+        MutableLiveData<Int>(), MutableLiveData<Int>()
+    )
+    val cardsToPlay: List<LiveData<Int>> = _cardsToPlay
+
+    var cardsPlayedDeferred = mutableListOf(
+        CompletableDeferred<Int>(), CompletableDeferred<Int>(),
+        CompletableDeferred<Int>(), CompletableDeferred<Int>()
+    )
+
+    private fun runMainLoop() {
+        viewModelScope.launch(Dispatchers.Default) {
+            for (round in 0 until roundEnd()) {
+                var isDoClearCards = true
+                for (player_i in 0 until 4) {
+                    _whoseTurn = player_i
+                    if (player_i != 0) AIPlay(player_i)
+                    val cardInt = cardsPlayedDeferred[player_i].await()
+                    if (isDoClearCards) {
+                        _clearPlayedCards.postValue(true)
+                        isDoClearCards = false
                     }
-                    _cardsInHand.value = _cardsInHand.value
-                    val card = selectedCardInts.first()
-                    val res = Pair(null, card)
-                    history.rounds(playerInt).add(card)
-                    selectedCardInts.clear()
-                    res
-                }
-                selectedCardInts.isNotEmpty() -> {
-                    Pair("select only ONE card!", -1)
-                }
-                else -> {
-                    Pair("no card selected!", -1)
+                    _history.rounds(player_i).add(cardInt)
+                    _cardsToPlay[player_i].postValue(cardInt)
+                    cardsPlayedDeferred[player_i] = CompletableDeferred()
                 }
             }
-        } else {
-            val card = handOfOthers[playerInt - 1].removeFirst()
-            history.rounds(playerInt).add(card.value)
-            return Pair(null, card.value)
+            _gamePhase.postValue(GamePhase.END)
+            _isGameFinished.postValue(true)
         }
     }
 
-    fun thisGameHistory(): GameHistory {
-        require(isGameFinished())
-        return history
+    private suspend fun AIPlay(player_i: Int) {
+        delay(500)
+        val card = handOfOthers[player_i - 1].removeFirst()
+        cardsPlayedDeferred[player_i].complete(card.value)
+    }
+
+    fun HumanPlay(): String? {
+        return when {
+            selectedCardInts.size == 1 -> {
+                _cardsInHand.value!!.removeIf {
+                    it.value in selectedCardInts
+                }
+                _cardsInHand.value = _cardsInHand.value
+                val card = selectedCardInts.first()
+                selectedCardInts.clear()
+                cardsPlayedDeferred[0].complete(card)
+                null
+            }
+            selectedCardInts.isNotEmpty() -> "select only ONE card!"
+            else -> "no card selected!"
+        }
     }
 }

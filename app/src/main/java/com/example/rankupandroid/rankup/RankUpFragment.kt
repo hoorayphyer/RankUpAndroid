@@ -99,6 +99,40 @@ class RankUpFragment : Fragment() {
         motionLayout.setState(R.id.atCenter, motionLayout.width, motionLayout.height)
         motionLayout.addTransitionListener(CardDealingTransitionListener())
 
+        viewModel.cardsToPlay[0].observe(viewLifecycleOwner, {
+            setCardImage(binding.playedCardsMyself, it)
+            // force redraw
+            binding.cardsRecyclerView.adapter?.notifyDataSetChanged()
+        })
+
+        viewModel.cardsToPlay[1].observe(viewLifecycleOwner, {
+            setCardImage(binding.playedCardsOpponent1, it)
+        })
+
+        viewModel.cardsToPlay[2].observe(viewLifecycleOwner, {
+            setCardImage(binding.playedCardsTeammate, it)
+        })
+
+        viewModel.cardsToPlay[3].observe(viewLifecycleOwner, {
+            setCardImage(binding.playedCardsOpponent2, it)
+        })
+
+        viewModel.isGameFinished.observe(viewLifecycleOwner, { isGameFinished ->
+            if (isGameFinished) {
+                Toast.makeText(
+                    context, "Game finished! Click DEAL to start another one", Toast
+                        .LENGTH_LONG
+                ).show()
+                historyViewModel.saveHistory(viewModel.history)
+            }
+        })
+
+        viewModel.clearPlayedCards.observe(viewLifecycleOwner, { clearPlayedCards ->
+            if (clearPlayedCards) {
+                resetAllPlayedCardImage()
+            }
+        })
+
         return binding.root
     }
 
@@ -126,7 +160,6 @@ class RankUpFragment : Fragment() {
                     setOnClickListener {
                         // TODO neither of following two lines is working to have the button
                         //  disappear
-                        viewModel.toNextPhase()
                         visibility = View.INVISIBLE
                         dealCards()
                     }
@@ -139,12 +172,16 @@ class RankUpFragment : Fragment() {
                     visibility = View.VISIBLE
                     text = getString(R.string.rankup_action_button_play_str)
                     setOnClickListener {
-                        playCards()
+                        if (viewModel.whoseTurn == 0) {
+                            val errorMsg = viewModel.HumanPlay()
+                            if (errorMsg != null) {
+                                Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show()
+                            }
+                        }
                     }
                 }
             }
         }
-
     }
 
     private fun resetAllPlayedCardImage() {
@@ -163,47 +200,6 @@ class RankUpFragment : Fragment() {
             dealingDirection[playerInt],
             dealingCardDurationInMilliseconds
         )
-    }
-
-    private fun playCards() {
-        val playerStart = 0
-        var clearedPlayedCards = false
-        for (i in 0..3) {
-            val player = (playerStart + i) % 4
-            val (errorMsg, cardPlayed) = viewModel.playCards(player)
-            if (errorMsg == null) {
-                // only clear played cards when new cards are to be played
-                if (!clearedPlayedCards) {
-                    resetAllPlayedCardImage()
-                    clearedPlayedCards = true
-                }
-
-                setCardImage(playedCardImage[player], cardPlayed)
-                if (player == 0) {
-                    binding.cardsRecyclerView.apply {
-//                        setViewHolderToUnselected(this, cardPlayed)
-                        // force redraw
-                        adapter?.notifyDataSetChanged()
-                    }
-                }
-            } else {
-                Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show()
-                // this return exits the entire function when the first player plays something
-                // illegal. Note this only works for now when the first player is the user
-                return
-            }
-            // TODO set delay between different players
-        }
-
-        viewModel.advanceRound()
-        if (viewModel.isGameFinished()) {
-            Toast.makeText(
-                context, "Game finished! Click DEAL to start another one", Toast
-                    .LENGTH_LONG
-            ).show()
-            historyViewModel.saveHistory(viewModel.thisGameHistory())
-            viewModel.toNextPhase()
-        }
     }
 
     private inner class CardDealingTransitionListener : MotionLayout.TransitionListener {
@@ -229,7 +225,7 @@ class RankUpFragment : Fragment() {
                     dealingCardDurationInMilliseconds
                 )
             } else if (dealingIter == viewModel.dealingEnd) {
-                viewModel.toNextPhase()
+                viewModel.startPlayPhase()
             }
         }
 
