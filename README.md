@@ -1,7 +1,9 @@
 # RankUpAndroid
 RankUp is a poker card game played by 4 players. I wanted to write an Android application for this game. The ultimate goal (beyond the scope of Udacity nd940) is to train some AI for human players to compete against. For the sake of the capstone project, the application in this repo stands as a preliminary version, in which the UI and backends are handled but the actual game logic (i.e. how each player should play and how to determine the winner) is left out on purpose.
 
-Here is the walkthrough of the application.
+Here is a demo of the application.
+
+![RankUp Demo](video/rankupDemo.gif)
 
 ## The Welcome Screen
 On the Welcome screen, a user sees two options
