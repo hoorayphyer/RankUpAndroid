@@ -1,6 +1,8 @@
 package com.example.rankupandroid.rankup
 
 import android.annotation.SuppressLint
+import android.app.PendingIntent
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,8 +12,11 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.motion.widget.MotionLayout
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import com.example.rankupandroid.MainActivity
 import com.example.rankupandroid.R
 import com.example.rankupandroid.SharedViewModelSelectedPlayers
 import com.example.rankupandroid.databinding.FragmentRankUpBinding
@@ -19,6 +24,7 @@ import com.example.rankupandroid.history.GameHistoryDataRepository
 import com.example.rankupandroid.history.GameHistoryDatabase
 import com.example.rankupandroid.history.ViewHistoryViewModel
 import com.example.rankupandroid.history.ViewHistoryViewModelFactory
+import com.example.rankupandroid.notification.RankUpNotification
 
 class RankUpFragment : Fragment() {
     private lateinit var binding: FragmentRankUpBinding
@@ -124,6 +130,19 @@ class RankUpFragment : Fragment() {
                         .LENGTH_LONG
                 ).show()
                 historyViewModel.saveHistory(viewModel.history)
+
+                buildNotification().let{
+                    it .setContentTitle(getString(R.string.rankup_notification_title))
+                       .setContentText(getString(R.string.rankup_notification_text, viewModel
+                           .winnerTeam()))
+
+                    with(NotificationManagerCompat.from(requireContext())) {
+                        // the first argument is the notification Id. When using the same one for
+                        // a second notify call, the notification is updated.
+                        notify(RankUpNotification.notificationIdForGameFinished, it.build())
+                    }
+
+                }
             }
         })
 
@@ -244,5 +263,22 @@ class RankUpFragment : Fragment() {
             progress: Float
         ) {
         }
+    }
+
+
+    private fun buildNotification(): NotificationCompat.Builder {
+        // Create an explicit intent for an Activity in your app
+        val intent = Intent(requireContext(), MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(requireContext(), 0, intent, 0)
+
+        return NotificationCompat.Builder(requireContext(), RankUpNotification.CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            // Set the intent that will fire when the user taps the notification
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
+
     }
 }

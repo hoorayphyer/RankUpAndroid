@@ -144,4 +144,8 @@ class RankUpViewModel : ViewModel() {
             else -> "no card selected!"
         }
     }
+
+    fun winnerTeam() : String {
+        return "Your team"
+    }
 }
