@@ -11,8 +11,23 @@
     <dimen name="card_height">90dp</dimen>
     <dimen name="card_width">60dp</dimen>
     <dimen name="card_height_with_lifting">120dp</dimen>
+    <dimen name="welcome_title_font_size">34sp</dimen>
     <dimen name="game_history_list_view_margin">20dp</dimen>
-    <dimen name="game_history_list_view_top_margin">60dp</dimen>
+    <dimen name="game_history_list_view_top_margin">32dp</dimen>
+    <dimen name="game_history_actionbutton_bottom_margin">8dp</dimen>
+    <dimen name="game_history_list_item_game_header_gameTimeText_top_margin">8dp</dimen>
+    <dimen name="player_view_image_start_margin">16dp</dimen>
+    <dimen name="player_view_player_name_text_size">20sp</dimen>
+    <dimen name="player_view_actionbutton_end_margin">16dp</dimen>
+    <dimen name="players_list_item_image_top_margin">8dp</dimen>
+    <dimen name="players_list_item_image_bottom_margin">8dp</dimen>
     <dimen name="round_header_left_margin">24dp</dimen>
     <dimen name="round_header_right_margin">8dp</dimen>
+    <dimen name="host_game_team_title_left_right_margin">16dp</dimen>
+    <dimen name="host_game_team_title_top_margin">32dp</dimen>
+    <dimen name="rankup_teammate_top_margin">8dp</dimen>
+    <dimen name="rankup_cardsrecyclerView_start_margin">16dp</dimen>
+    <dimen name="rankup_actionbutton_end_margin">16dp</dimen>
+    <dimen name="rankup_opponent2_start_margin">8dp</dimen>
+    <dimen name="rankup_opponent1_end_margin">8dp</dimen>
 </resources>

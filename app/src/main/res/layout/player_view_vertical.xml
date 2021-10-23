@@ -21,7 +21,7 @@
         android:layout_width="@dimen/player_image_width"
         android:layout_height="@dimen/vertical_player_name_height"
         android:text="@string/unknown_player_name_str"
-        android:textSize="20sp"
+        android:textSize="@dimen/player_view_player_name_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/player_image_vertical" />

@@ -21,7 +21,7 @@
         android:id="@+id/hostGameFragment"
         android:name="com.example.rankupandroid.HostGameFragment"
         android:label="fragment_host_game"
-        tools:layout="@layout/fragment_host_game" >
+        tools:layout="@layout/fragment_host_game">
         <action
             android:id="@+id/action_hostGameFragment_to_rankUpFragment"
             app:destination="@id/rankUpFragment" />
@@ -38,7 +38,7 @@
         android:id="@+id/playersListFragment"
         android:name="com.example.rankupandroid.playerslist.PlayersListFragment"
         android:label="fragment_players_list"
-        tools:layout="@layout/fragment_players_list" >
+        tools:layout="@layout/fragment_players_list">
         <argument
             android:name="from"
             app:argType="com.example.rankupandroid.playerslist.ToPlayersListFrom" />

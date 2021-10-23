@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MotionScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <ConstraintSet android:id="@+id/atCenter" >
+    <ConstraintSet android:id="@+id/atCenter">
         <Constraint
             android:id="@+id/cardToBeDealt"
             android:layout_width="wrap_content"
@@ -12,7 +12,7 @@
             app:layout_constraintBottom_toTopOf="@+id/myself" />
     </ConstraintSet>
 
-    <ConstraintSet android:id="@+id/dealtToBottom" >
+    <ConstraintSet android:id="@+id/dealtToBottom">
         <Constraint
             android:id="@+id/cardToBeDealt"
             android:layout_width="wrap_content"
@@ -22,7 +22,7 @@
             app:layout_constraintTop_toTopOf="@+id/cardsRecyclerView" />
     </ConstraintSet>
 
-    <ConstraintSet android:id="@+id/dealtToRight" >
+    <ConstraintSet android:id="@+id/dealtToRight">
         <Constraint
             android:id="@+id/cardToBeDealt"
             android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
             app:layout_constraintBottom_toTopOf="@+id/cardsRecyclerView" />
     </ConstraintSet>
 
-    <ConstraintSet android:id="@+id/dealtToTop" >
+    <ConstraintSet android:id="@+id/dealtToTop">
         <Constraint
             android:id="@+id/cardToBeDealt"
             android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
             app:layout_constraintTop_toTopOf="@+id/teammate" />
     </ConstraintSet>
 
-    <ConstraintSet android:id="@+id/dealtToLeft" >
+    <ConstraintSet android:id="@+id/dealtToLeft">
         <Constraint
             android:id="@+id/cardToBeDealt"
             android:layout_width="wrap_content"
